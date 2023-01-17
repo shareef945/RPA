@@ -1,0 +1,1736 @@
+﻿<process name="CD-LECToeknPurchase_v1.1" version="1.0" bpversion="6.5.0.12573" narrative="Automatically settles successful token purchases" byrefcollection="true" preferredid="d4967ca5-af8e-4cba-b017-e7df14f19172">
+  <view>
+    <camerax>78</camerax>
+    <cameray>-161</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <stage stageid="440e2a10-970f-4d70-bc5a-4e99ff26bff2" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="74d24e88-106f-48e7-908b-8f219c41b38e" name="Start" type="Start">
+    <loginhibit onsuccess="true" />
+    <narrative>the beginning of the process</narrative>
+    <displayx>360</displayx>
+    <displayy>-285</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>a951276c-7ff1-43c5-a3ee-f16be5d16158</onsuccess>
+  </stage>
+  <stage stageid="b92cdf8e-afc0-41bc-bde9-e05fa64497cc" name="End" type="End">
+    <loginhibit onsuccess="true" />
+    <narrative>End of process</narrative>
+    <displayx>180</displayx>
+    <displayy>1050</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="97acb9c6-1a00-4e12-9c82-e673d5dc4be5" name="Set Connection" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Set connection to mobile app db</narrative>
+    <displayx>360</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="ConnectionString" friendlyname="ConnectionString" expr="&quot;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST= 10.8.184.179)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=srvesb.ecobank.group)));User Id=fcubsawa;Password=AWAUAT123$;&quot;" />
+    </inputs>
+    <onsuccess>a01d857a-41af-4417-805d-bf6ffdd597d8</onsuccess>
+    <resource object="Oracle Connection With Managed Access" action="Set Connection" />
+  </stage>
+  <stage stageid="a01d857a-41af-4417-805d-bf6ffdd597d8" name="Open Connection" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Open connection to mobile app db</narrative>
+    <displayx>360</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>3e665734-6314-4286-a29a-40ac36ff70ba</onsuccess>
+    <resource object="Oracle Connection With Managed Access" action="Open" />
+  </stage>
+  <stage stageid="3e665734-6314-4286-a29a-40ac36ff70ba" name="Get Transactions" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Run query to get transactions from mobile app db</narrative>
+    <displayx>360</displayx>
+    <displayy>0</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="SQL" friendlyname="SQL" narrative="An SQL query to fetch the data. In most cases this will be a 'select' query." expr="&quot;select request_id, request_date,biller_code,account_no,bill_ref_no,amount,payment_detail,customer_ref_no,product_code,response_code,response_msg,charge,cba_ref_no,cba_rsp_msg,&#xA;payment_ref,biller_rsp_code,biller_rsp_msg&#xA;from ESBUSER.bil_tran_log&#xA;where affiliate_code= 'ELR'&#xA;AND TRUNC(request_date) between  10-SEP-2022 and 13-SEP-2022&#xA;and biller_code='LIBELEC'&#xA;UNION&#xA;select  request_id,request_date,biller_code,account_no,bill_ref_no,amount,payment_detail,customer_ref_no,product_code,response_code,response_msg,charge,cba_ref_no,cba_rsp_msg,&#xA;payment_ref,biller_rsp_code,biller_rsp_msg&#xA;from ESBUSER.bil_tran_log_history&#xA;where affiliate_code= 'ELR'&#xA;AND TRUNC(request_date) between 10-SEP-2022 and 13-SEP-2022&#xA;and biller_code='LIBELEC'&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="col_Results" friendlyname="col_Results" stage="col_Results" />
+    </outputs>
+    <onsuccess>8106ca16-962a-45fd-be3e-c23bcac8c368</onsuccess>
+    <resource object="Oracle Connection With Managed Access" action="Get Collection" />
+  </stage>
+  <stage stageid="d53f9d17-97ad-4369-9cb5-191c88b837a5" name="col_Results" type="Collection">
+    <narrative>collection of col_Results from query</narrative>
+    <displayx>-405</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="28a4f36b-5f9b-4d39-9e5e-cc6fe05efa3a" name="Recover2" type="Recover">
+    <loginhibit onsuccess="true" />
+    <narrative>Recover if connection fails</narrative>
+    <displayx>450</displayx>
+    <displayy>0</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>437d8c58-098b-4e68-851c-107a9fb94914</onsuccess>
+    <attempts>5</attempts>
+  </stage>
+  <stage stageid="437d8c58-098b-4e68-851c-107a9fb94914" name="Resume2" type="Resume">
+    <loginhibit onsuccess="true" />
+    <narrative>Retry if connection fails</narrative>
+    <displayx>525</displayx>
+    <displayy>0</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>4ab49bea-f8bc-4de3-8dbf-1560a2362da8</onsuccess>
+  </stage>
+  <stage stageid="4ab49bea-f8bc-4de3-8dbf-1560a2362da8" name="Anchor1" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>525</displayx>
+    <displayy>45</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>e3e11cb9-b54f-421a-8d6f-2bf0049287f4</onsuccess>
+  </stage>
+  <stage stageid="e3e11cb9-b54f-421a-8d6f-2bf0049287f4" name="Anchor2" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>45</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>6efb7139-d5cf-43d1-a566-77b17f46c2a1</onsuccess>
+  </stage>
+  <stage stageid="6efb7139-d5cf-43d1-a566-77b17f46c2a1" name="Anchor3" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>0</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>3e665734-6314-4286-a29a-40ac36ff70ba</onsuccess>
+  </stage>
+  <stage stageid="59857cb9-adff-401b-bd18-c095f1b4cec4" name="Block1" type="Block">
+    <loginhibit />
+    <narrative>Block to recover process if it fails here</narrative>
+    <displayx>300</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="d7256867-f802-4cfe-9a78-17eaf529cba1" name="Recover2" type="Recover">
+    <loginhibit onsuccess="true" />
+    <narrative>Recover if connection fails</narrative>
+    <displayx>450</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>9d94886d-d572-4567-8831-195153e76bd3</onsuccess>
+    <attempts>5</attempts>
+  </stage>
+  <stage stageid="e67a7b01-adca-4993-951f-0f41b75f7bee" name="Recover2" type="Recover">
+    <loginhibit onsuccess="true" />
+    <narrative>Recover if connection fails</narrative>
+    <displayx>450</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>7b3389db-7908-4bb5-8a92-412be02c5e92</onsuccess>
+    <attempts>5</attempts>
+  </stage>
+  <stage stageid="7b3389db-7908-4bb5-8a92-412be02c5e92" name="Resume2" type="Resume">
+    <loginhibit onsuccess="true" />
+    <narrative>Retry if connection fails</narrative>
+    <displayx>570</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>3c87dda9-894f-4084-9a90-b0d6537b80ed</onsuccess>
+  </stage>
+  <stage stageid="9d94886d-d572-4567-8831-195153e76bd3" name="Resume2" type="Resume">
+    <loginhibit onsuccess="true" />
+    <narrative>Retry if connection fails</narrative>
+    <displayx>525</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>4e9552cf-96a6-4a4c-80be-717518d6e39f</onsuccess>
+  </stage>
+  <stage stageid="b918f213-4406-475c-b1c7-3ffc8df6fe18" name="Block1" type="Block">
+    <loginhibit />
+    <narrative>Block to recover process if it fails here</narrative>
+    <displayx>300</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="ad288bdd-bab6-4e15-a85f-0ae894146120" name="Block1" type="Block">
+    <loginhibit />
+    <narrative>Block to recover process if it fails here</narrative>
+    <displayx>300</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>180</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="2b1ef74a-ac83-4a93-b119-0b9bb5b774d2" name="Anchor4" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>97acb9c6-1a00-4e12-9c82-e673d5dc4be5</onsuccess>
+  </stage>
+  <stage stageid="27720646-01c0-4fa4-8826-69ad47c234de" name="Anchor5" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>255</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>a01d857a-41af-4417-805d-bf6ffdd597d8</onsuccess>
+  </stage>
+  <stage stageid="4e9552cf-96a6-4a4c-80be-717518d6e39f" name="Anchor7" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>525</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>5fc1848a-b890-427f-9160-ea44f028a126</onsuccess>
+  </stage>
+  <stage stageid="5fc1848a-b890-427f-9160-ea44f028a126" name="Anchor8" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>2b1ef74a-ac83-4a93-b119-0b9bb5b774d2</onsuccess>
+  </stage>
+  <stage stageid="3c87dda9-894f-4084-9a90-b0d6537b80ed" name="Anchor7" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>570</displayx>
+    <displayy>-240</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>4ff38277-0ac5-468f-81f0-f8e41984cb9c</onsuccess>
+  </stage>
+  <stage stageid="4ff38277-0ac5-468f-81f0-f8e41984cb9c" name="Anchor8" type="Anchor">
+    <loginhibit />
+    <narrative>
+    </narrative>
+    <displayx>255</displayx>
+    <displayy>-240</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>27720646-01c0-4fa4-8826-69ad47c234de</onsuccess>
+  </stage>
+  <stage stageid="a951276c-7ff1-43c5-a3ee-f16be5d16158" name="Connect to DB?" type="Decision">
+    <loginhibit onsuccess="true" />
+    <narrative>Flag = True : Get data from DB
+Flag = False : Get data from input location</narrative>
+    <displayx>360</displayx>
+    <displayy>-210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[in_connect_flag] = True" />
+    <ontrue>97acb9c6-1a00-4e12-9c82-e673d5dc4be5</ontrue>
+    <onfalse>d4ce42ef-d575-444c-9b81-19b30b97d72c</onfalse>
+  </stage>
+  <stage stageid="6f84627c-3cfe-436f-ad87-44241e57bbac" name="in_connect_flag" type="Data">
+    <narrative>a flag to determine if process should get data from input file or from DB</narrative>
+    <displayx>-465</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d4ce42ef-d575-444c-9b81-19b30b97d72c" name="Anchor6" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>-210</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>f91cbf51-935b-44fe-946a-a8c63af018fc</onsuccess>
+  </stage>
+  <stage stageid="0ae8b9f7-8d41-409d-8c1a-9044efcabdb0" name="in_main_path" type="Data">
+    <narrative>the main path of the process</narrative>
+    <displayx>-405</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">E:\AWA RPA\LEC TOKEN PURCHASE\</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="27468ed9-f332-40f2-84ae-e4a83a6b699b" name="in_workbook_name" type="Data">
+    <narrative>The name of the worksheet</narrative>
+    <displayx>-465</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="53a6a1d4-1c39-4281-97ee-11a6d6464eca" name="Create Instance" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Creates an instance of microsoft excel</narrative>
+    <displayx>330</displayx>
+    <displayy>180</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="flag" name="Enable Events" friendlyname="Enable Events" narrative="Flag to indicate that events should be enabled / disabled on the attached instance - defaulted to True" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="handle" friendlyname="handle" narrative="An integer which can be used to identify the created instance in subsequent actions" stage="in_handle" />
+    </outputs>
+    <onsuccess>93beabe4-6396-4279-b0eb-877e49137829</onsuccess>
+    <resource object="MS Excel VBO" action="Create Instance" />
+  </stage>
+  <stage stageid="1638622d-270d-4210-ad8b-ee962f86445d" name="in_handle" type="Data">
+    <narrative>the MS Excel handle</narrative>
+    <displayx>-465</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="93beabe4-6396-4279-b0eb-877e49137829" name="Open Workbook" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Opens a MS Excel workbook</narrative>
+    <displayx>330</displayx>
+    <displayy>225</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the required workbook should be opened. The default of zero indicates the currently active instance." expr="[in_handle]" />
+      <input type="text" name="File name" friendlyname="File name" narrative="The path and name of the file which should be opened." expr="[in_path]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name used by Excel to identify the workbook - usually this is the file name (without the path)." stage="in_workbook_name" />
+    </outputs>
+    <onsuccess>94ea3e05-4bc3-41cb-bd52-7fd6164c26df</onsuccess>
+    <resource object="MS Excel VBO" action="Open Workbook" />
+  </stage>
+  <stage stageid="2761cddd-9a75-428a-8ae2-a4b296dd00ed" name="col_Data" type="Collection">
+    <narrative>The raw data from the input file</narrative>
+    <displayx>-465</displayx>
+    <displayy>75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b55452ce-242f-45dd-87d0-dfbff2d2204c" name="col_Files" type="Collection">
+    <narrative>Collection of all col_Files in the folder</narrative>
+    <displayx>-465</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="37ae428d-47e2-4765-9147-2619e866c602" name="in_success" type="Data">
+    <narrative>Flag to determine if posting was successful</narrative>
+    <displayx>-405</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="88983b4d-ae6b-4e74-b542-2d1ee9cdd45a" name="Count Rows" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Count rows of col_Files collection</narrative>
+    <displayx>90</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;col_Files&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="in_count" />
+    </outputs>
+    <onsuccess>c1897630-ec81-4945-b714-08727c3c8a73</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="5ded8256-374d-42ad-9875-bcfd06912adf" name="in_count" type="Data">
+    <narrative>A count of all Files</narrative>
+    <displayx>-405</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c1897630-ec81-4945-b714-08727c3c8a73" name="Multiple col_Files?" type="Decision">
+    <loginhibit onsuccess="true" />
+    <narrative>Checks to see if there are multiple col_Files</narrative>
+    <displayx>90</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[in_count] &gt; 1" />
+    <ontrue>317cd390-ac20-41ca-b756-f8c00416ded8</ontrue>
+    <onfalse>c4afb87b-c88e-4da3-a300-14bb12dd6d16</onfalse>
+  </stage>
+  <stage stageid="317cd390-ac20-41ca-b756-f8c00416ded8" name="BE:Multiple_Files_Exist" type="Exception">
+    <loginhibit onsuccess="true" />
+    <narrative>Process only expects one file in the location at a time</narrative>
+    <displayx>0</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception localized="yes" type="Business Exception" detail="&quot;SE_Collection: Error&quot;" />
+  </stage>
+  <stage stageid="c4afb87b-c88e-4da3-a300-14bb12dd6d16" name="Loop col_Files" type="LoopStart">
+    <loginhibit onsuccess="true" />
+    <narrative>Loop over col_Files to assign path</narrative>
+    <displayx>180</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>1a474970-263b-4045-819b-48f68e068765</onsuccess>
+    <groupid>2083c34d-fab0-4267-afdd-dc1dc04c0007</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>col_Files</loopdata>
+  </stage>
+  <stage stageid="cecf2c2a-d672-4fc5-8568-06884b83b76b" name="Loop col_Files" type="LoopEnd">
+    <loginhibit onsuccess="true" />
+    <narrative>End loop over col_Files</narrative>
+    <displayx>180</displayx>
+    <displayy>180</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>dc4408fb-7cf8-4927-89b5-0c80e609dad8</onsuccess>
+    <groupid>2083c34d-fab0-4267-afdd-dc1dc04c0007</groupid>
+  </stage>
+  <stage stageid="1a474970-263b-4045-819b-48f68e068765" name="Assign Path" type="Calculation">
+    <loginhibit onsuccess="true" />
+    <narrative>assigns the file path to a variable</narrative>
+    <displayx>180</displayx>
+    <displayy>135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>cecf2c2a-d672-4fc5-8568-06884b83b76b</onsuccess>
+    <calculation expression="[col_Files.Path]" stage="in_path" />
+  </stage>
+  <stage stageid="94ea3e05-4bc3-41cb-bd52-7fd6164c26df" name="Get Worksheet As Collection" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Gets the worksheet specified and saves it in a collection</narrative>
+    <displayx>180</displayx>
+    <displayy>225</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" expr="[in_handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" expr="[in_workbook_name]" />
+      <input type="text" name="Worksheet Name" friendlyname="Worksheet Name" narrative="The name of the worksheet within the specified workbook which should be written to a collection. The default empty text indicates the currently active worksheet within the specified workbook." expr="&quot;Sheet1&quot;" />
+      <input type="text" name="StartCell" friendlyname="StartCell" expr="&quot;B4&quot;" />
+      <input type="flag" name="Use Header" friendlyname="Use Header" expr="True" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Data" friendlyname="Data" stage="col_Data" />
+    </outputs>
+    <onsuccess>7437faac-21fb-4426-889d-1dd049e8a57c</onsuccess>
+    <resource object="MS Excel VBO" action="Get Worksheet as Collection Offset" />
+  </stage>
+  <stage stageid="7437faac-21fb-4426-889d-1dd049e8a57c" name="Loop Data" type="LoopStart">
+    <loginhibit onsuccess="true" />
+    <narrative>Loops over data from input file</narrative>
+    <displayx>180</displayx>
+    <displayy>270</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>e51bf6f7-9ab7-4869-ab43-d41d6aadd45d</onsuccess>
+    <groupid>85f4f1eb-c339-48d5-8a21-75545faf5066</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>col_Data</loopdata>
+  </stage>
+  <stage stageid="9a4dd711-e891-4eff-86fc-2d1290cd1141" name="Loop Data" type="LoopEnd">
+    <loginhibit onsuccess="true" />
+    <narrative>Ends looping over data</narrative>
+    <displayx>180</displayx>
+    <displayy>465</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>003b5ef3-f801-49b7-8bad-1b796b2727c9</onsuccess>
+    <groupid>85f4f1eb-c339-48d5-8a21-75545faf5066</groupid>
+  </stage>
+  <stage stageid="8be2123f-3a86-46d4-8979-7d023b74b7b7" name="Successful?" type="Decision">
+    <loginhibit onsuccess="true" />
+    <narrative>Check to see if transaction was successful</narrative>
+    <displayx>180</displayx>
+    <displayy>360</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[col_Data.Cba Rsp Msg] = &quot;SUCCESS&quot; AND [col_Data.Biller Rsp Msg] = &quot;SUCCESS&quot;" />
+    <ontrue>cc89610e-ad67-4386-ab5f-bc63c262b037</ontrue>
+    <onfalse>738ea702-ad1e-48ac-8978-4f5ce41e2923</onfalse>
+  </stage>
+  <stage stageid="d317172a-a188-4ff1-9be3-ba7346296baf" name="Anchor10" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>495</displayx>
+    <displayy>465</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>9a4dd711-e891-4eff-86fc-2d1290cd1141</onsuccess>
+  </stage>
+  <stage stageid="a59d8aa6-83b8-4552-bf9f-12c0c9b66ad0" name="col_upload_success" type="Collection">
+    <narrative>The upload file for successful transactions</narrative>
+    <displayx>-405</displayx>
+    <displayy>75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="BBR" type="text" />
+      <field name="BR CODE" type="text" />
+      <field name="SPACE" type="text" />
+      <field name="ECOSOURCE" type="text" />
+      <field name="AMOUNT" type="number" />
+      <field name="ACCOUNT NUMBER" type="text" />
+      <field name="DRCR" type="text" />
+      <field name="SPACE1" type="text" />
+      <field name="CURRENCY" type="text" />
+      <field name="LCY_EQUIVALENT" type="number" />
+      <field name="BR CODE1" type="text" />
+      <field name="VALUE_DATE" type="text" />
+      <field name="RATE" type="number" />
+      <field name="SPACE2" type="text" />
+      <field name="NARRATION" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="78c9279b-0168-4f67-bda3-a2403e2bfa2a" name="col_upload_failed" type="Collection">
+    <narrative>The upload file for failed transactions</narrative>
+    <displayx>-465</displayx>
+    <displayy>120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="BBR" type="text" />
+      <field name="BR CODE" type="text" />
+      <field name="SPACE" type="text" />
+      <field name="ECOSOURCE" type="text" />
+      <field name="AMOUNT" type="number" />
+      <field name="ACCOUNT NUMBER" type="text" />
+      <field name="DRCR" type="text" />
+      <field name="SPACE1" type="text" />
+      <field name="CURRENCY" type="text" />
+      <field name="LCY_EQUIVALENT" type="number" />
+      <field name="BR CODE1" type="text" />
+      <field name="VALUE_DATE" type="text" />
+      <field name="RATE" type="number" />
+      <field name="SPACE2" type="text" />
+      <field name="NARRATION" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="59a85ff9-7f40-4997-be3b-ef83d307e3d6" name="col_batchCollectionSuccess" type="Collection">
+    <narrative>the batch collection for successful txns</narrative>
+    <displayx>-405</displayx>
+    <displayy>120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="AFFILIATECODE" type="text" description="&quot;ELR&quot;" />
+      <field name="EXTERNALREFNO" type="text" />
+      <field name="NARRATION" type="text" />
+      <field name="AMOUNT" type="number" />
+      <field name="ACCOUNTNUMBER" type="text" />
+      <field name="CURRENCY" type="text" />
+      <field name="BRANCHCODE" type="text" />
+      <field name="DRCRIND" type="text" />
+      <field name="RATE" type="text" />
+      <field name="LCY_AMOUNT" type="number" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="c7020d6e-ec1b-4246-afbb-9751539f289e" name="col_batchCollectionFailed" type="Collection">
+    <narrative>the batch collection for failed txns</narrative>
+    <displayx>-465</displayx>
+    <displayy>165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="AFFILIATECODE" type="text" description="&quot;ELR&quot;" />
+      <field name="EXTERNALREFNO" type="text" />
+      <field name="NARRATION" type="text" />
+      <field name="AMOUNT" type="number" />
+      <field name="ACCOUNTNUMBER" type="text" />
+      <field name="CURRENCY" type="text" />
+      <field name="BRANCHCODE" type="text" />
+      <field name="DRCRIND" type="text" />
+      <field name="RATE" type="text" />
+      <field name="LCY_AMOUNT" type="number" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="2c2a3882-5551-41ba-8c9c-7c9c73679124" name="Populate Failed Principal" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <narrative>Adds data to failed batch collection</narrative>
+    <displayx>270</displayx>
+    <displayy>405</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>9bdc57f4-76c3-42b0-8356-e494218a3ac5</onsuccess>
+    <steps>
+      <calculation expression="[col_Data.Customer Account]" stage="col_batchCollectionFailed.ACCOUNTNUMBER" />
+      <calculation expression="&quot;ELR&quot;" stage="col_batchCollectionFailed.AFFILIATECODE" />
+      <calculation expression="ToNumber([col_Data.Amount])" stage="col_batchCollectionFailed.AMOUNT" />
+      <calculation expression="&quot;J60&quot;" stage="col_batchCollectionFailed.BRANCHCODE" />
+      <calculation expression="&quot;USD&quot;" stage="col_batchCollectionFailed.CURRENCY" />
+      <calculation expression="&quot;C&quot;" stage="col_batchCollectionFailed.DRCRIND" />
+      <calculation expression="" stage="col_batchCollectionFailed.EXTERNALREFNO" />
+      <calculation expression="ToNumber([col_Data.Amount]) * [in_mid_rate]" stage="col_batchCollectionFailed.LCY_AMOUNT" />
+      <calculation expression="&quot;UID&quot;&amp;[col_Data.Customer Ref No]" stage="col_batchCollectionFailed.NARRATION" />
+      <calculation expression="[in_mid_rate]" stage="col_batchCollectionFailed.RATE" />
+    </steps>
+  </stage>
+  <stage stageid="8a48798f-5bda-4c75-b409-949f991b1d7e" name="in_mid_rate" type="Data">
+    <narrative>the USD to LRD mid rate</narrative>
+    <displayx>-405</displayx>
+    <displayy>165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>153.87</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e310c982-431d-411f-be73-eae810a1f178" name="Populate Success" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <narrative>Adds data to success batch collection</narrative>
+    <displayx>90</displayx>
+    <displayy>405</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>fb800cf7-6048-42e1-871a-28dcd36c2b72</onsuccess>
+    <steps>
+      <calculation expression="[in_principal_gl]" stage="col_batchCollectionSuccess.ACCOUNTNUMBER" />
+      <calculation expression="&quot;ELR&quot;" stage="col_batchCollectionSuccess.AFFILIATECODE" />
+      <calculation expression="ToNumber([col_Data.Amount])" stage="col_batchCollectionSuccess.AMOUNT" />
+      <calculation expression="&quot;J60&quot;" stage="col_batchCollectionSuccess.BRANCHCODE" />
+      <calculation expression="&quot;USD&quot;" stage="col_batchCollectionSuccess.CURRENCY" />
+      <calculation expression="&quot;D&quot;" stage="col_batchCollectionSuccess.DRCRIND" />
+      <calculation expression="" stage="col_batchCollectionSuccess.EXTERNALREFNO" />
+      <calculation expression="ToNumber([col_Data.Amount]) * [in_mid_rate]" stage="col_batchCollectionSuccess.LCY_AMOUNT" />
+      <calculation expression="&quot;UID&quot;&amp;[col_Data.Customer Ref No]" stage="col_batchCollectionSuccess.NARRATION" />
+      <calculation expression="[in_mid_rate]" stage="col_batchCollectionSuccess.RATE" />
+      <calculation expression="ToNumber([col_Data.Amount]) + [in_overall_total]" stage="in_overall_total" />
+    </steps>
+  </stage>
+  <stage stageid="cfcf1bad-d8a6-4995-9cca-d2899954afb0" name="Populate Failed Commission" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <narrative>Adds data to failed batch collection</narrative>
+    <displayx>420</displayx>
+    <displayy>405</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>8a74281c-efcb-4393-8ace-8906a4da5800</onsuccess>
+    <steps>
+      <calculation expression="[col_Data.Customer Account]" stage="col_batchCollectionFailed.ACCOUNTNUMBER" />
+      <calculation expression="&quot;ELR&quot;" stage="col_batchCollectionFailed.AFFILIATECODE" />
+      <calculation expression="ToNumber([col_Data.Charge])" stage="col_batchCollectionFailed.AMOUNT" />
+      <calculation expression="&quot;J60&quot;" stage="col_batchCollectionFailed.BRANCHCODE" />
+      <calculation expression="&quot;USD&quot;" stage="col_batchCollectionFailed.CURRENCY" />
+      <calculation expression="&quot;C&quot;" stage="col_batchCollectionFailed.DRCRIND" />
+      <calculation expression="" stage="col_batchCollectionFailed.EXTERNALREFNO" />
+      <calculation expression="ToNumber([col_Data.Charge]) * [in_mid_rate]" stage="col_batchCollectionFailed.LCY_AMOUNT" />
+      <calculation expression="&quot;UID&quot;&amp;[col_Data.Customer Ref No]" stage="col_batchCollectionFailed.NARRATION" />
+      <calculation expression="[in_mid_rate]" stage="col_batchCollectionFailed.RATE" />
+    </steps>
+  </stage>
+  <stage stageid="cc89610e-ad67-4386-ab5f-bc63c262b037" name="Add Row" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Adds a row to the successful transactions collection</narrative>
+    <displayx>90</displayx>
+    <displayy>360</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;col_batchCollectionSuccess&quot;" />
+    </inputs>
+    <onsuccess>e310c982-431d-411f-be73-eae810a1f178</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="738ea702-ad1e-48ac-8978-4f5ce41e2923" name="Add Row" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Adds a row to the failed transaction collection</narrative>
+    <displayx>270</displayx>
+    <displayy>360</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;col_batchCollectionFailed&quot;" />
+    </inputs>
+    <onsuccess>2c2a3882-5551-41ba-8c9c-7c9c73679124</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="2251b47b-50d8-4baf-91bf-a178a65803bd" name="Add Row" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Adds a row to the failed transaction collection</narrative>
+    <displayx>420</displayx>
+    <displayy>360</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;col_batchCollectionFailed&quot;" />
+    </inputs>
+    <onsuccess>cfcf1bad-d8a6-4995-9cca-d2899954afb0</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="334d60b7-8221-4713-839d-b9fea22f9c1a" name="in_principal_gl" type="Data">
+    <narrative>the receivable gl account number</narrative>
+    <displayx>-465</displayx>
+    <displayy>-195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">6101648731</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f15e9ddb-570f-4985-b9b1-28606406df94" name="in_commission_gl" type="Data">
+    <narrative>the commission gl account number</narrative>
+    <displayx>-405</displayx>
+    <displayy>-195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">322000021</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="20f40750-5453-4eaa-b52c-f81aa87653e3" name="Populate Failed Commission" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <narrative>Adds data to failed batch collection</narrative>
+    <displayx>495</displayx>
+    <displayy>405</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>d317172a-a188-4ff1-9be3-ba7346296baf</onsuccess>
+    <steps>
+      <calculation expression="[in_commission_gl]" stage="col_batchCollectionFailed.ACCOUNTNUMBER" />
+      <calculation expression="&quot;ELR&quot;" stage="col_batchCollectionFailed.AFFILIATECODE" />
+      <calculation expression="ToNumber([col_Data.Charge])" stage="col_batchCollectionFailed.AMOUNT" />
+      <calculation expression="&quot;J60&quot;" stage="col_batchCollectionFailed.BRANCHCODE" />
+      <calculation expression="&quot;USD&quot;" stage="col_batchCollectionFailed.CURRENCY" />
+      <calculation expression="&quot;D&quot;" stage="col_batchCollectionFailed.DRCRIND" />
+      <calculation expression="" stage="col_batchCollectionFailed.EXTERNALREFNO" />
+      <calculation expression="ToNumber([col_Data.Charge]) * [in_mid_rate]" stage="col_batchCollectionFailed.LCY_AMOUNT" />
+      <calculation expression="&quot;UID&quot;&amp;[col_Data.Customer Ref No]" stage="col_batchCollectionFailed.NARRATION" />
+      <calculation expression="[in_mid_rate]" stage="col_batchCollectionFailed.RATE" />
+    </steps>
+  </stage>
+  <stage stageid="8a74281c-efcb-4393-8ace-8906a4da5800" name="Add Row" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Adds a row to the failed transaction collection</narrative>
+    <displayx>495</displayx>
+    <displayy>360</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;col_batchCollectionFailed&quot;" />
+    </inputs>
+    <onsuccess>20f40750-5453-4eaa-b52c-f81aa87653e3</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="b80b53a4-3f39-4600-b1ff-bcb50d74c339" name="Populate Failed Principal" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <narrative>Adds data to failed batch collection</narrative>
+    <displayx>345</displayx>
+    <displayy>405</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>2251b47b-50d8-4baf-91bf-a178a65803bd</onsuccess>
+    <steps>
+      <calculation expression="[in_principal_gl]" stage="col_batchCollectionFailed.ACCOUNTNUMBER" />
+      <calculation expression="&quot;ELR&quot;" stage="col_batchCollectionFailed.AFFILIATECODE" />
+      <calculation expression="ToNumber([col_Data.Amount])" stage="col_batchCollectionFailed.AMOUNT" />
+      <calculation expression="&quot;J60&quot;" stage="col_batchCollectionFailed.BRANCHCODE" />
+      <calculation expression="&quot;USD&quot;" stage="col_batchCollectionFailed.CURRENCY" />
+      <calculation expression="&quot;D&quot;" stage="col_batchCollectionFailed.DRCRIND" />
+      <calculation expression="" stage="col_batchCollectionFailed.EXTERNALREFNO" />
+      <calculation expression="ToNumber([col_Data.Amount]) * [in_mid_rate]" stage="col_batchCollectionFailed.LCY_AMOUNT" />
+      <calculation expression="&quot;UID&quot;&amp;[col_Data.Customer Ref No]" stage="col_batchCollectionFailed.NARRATION" />
+      <calculation expression="[in_mid_rate]" stage="col_batchCollectionFailed.RATE" />
+    </steps>
+  </stage>
+  <stage stageid="9bdc57f4-76c3-42b0-8356-e494218a3ac5" name="Add Row" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Adds a row to the failed transaction collection</narrative>
+    <displayx>345</displayx>
+    <displayy>360</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;col_batchCollectionFailed&quot;" />
+    </inputs>
+    <onsuccess>b80b53a4-3f39-4600-b1ff-bcb50d74c339</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="fb800cf7-6048-42e1-871a-28dcd36c2b72" name="Anchor9" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>465</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>9a4dd711-e891-4eff-86fc-2d1290cd1141</onsuccess>
+  </stage>
+  <stage stageid="e51bf6f7-9ab7-4869-ab43-d41d6aadd45d" name="Is Blank?" type="Decision">
+    <loginhibit onsuccess="true" />
+    <narrative>Checks to see if the request ID is blank</narrative>
+    <displayx>180</displayx>
+    <displayy>315</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[col_Data.Request Id] = &quot;&quot;" />
+    <ontrue>7061a491-7b53-4cc6-8139-f7aa6af7f532</ontrue>
+    <onfalse>8be2123f-3a86-46d4-8979-7d023b74b7b7</onfalse>
+  </stage>
+  <stage stageid="7061a491-7b53-4cc6-8139-f7aa6af7f532" name="Anchor11" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>45</displayx>
+    <displayy>315</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>c2e21286-1282-4830-be0f-7a98115f9aa7</onsuccess>
+  </stage>
+  <stage stageid="c2e21286-1282-4830-be0f-7a98115f9aa7" name="Anchor12" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>45</displayx>
+    <displayy>465</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>9a4dd711-e891-4eff-86fc-2d1290cd1141</onsuccess>
+  </stage>
+  <stage stageid="003b5ef3-f801-49b7-8bad-1b796b2727c9" name="Post to CBA" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Post successful transactions to flexcube</narrative>
+    <displayx>180</displayx>
+    <displayy>510</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="batchCollection" friendlyname="batchCollection" expr="[col_batchCollectionSuccess]" />
+      <input type="text" name="ConnectionString" friendlyname="ConnectionString" expr="&quot;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST= 10.4.184.72)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ENTBLLDBUAT)));User Id=MESB_SADC;Password=MESB_SADC;&quot;" />
+      <input type="flag" name="EnablePosting" friendlyname="EnablePosting" expr="" />
+      <input type="text" name="ProcessName" friendlyname="ProcessName" expr="&quot;ELR TOKEN PURCAHSE SETTLMENT DD &quot; &amp;Today()" />
+    </inputs>
+    <outputs>
+      <output type="text" name="ResponseCode" friendlyname="ResponseCode" stage="ResponseCode1" />
+      <output type="text" name="ResponseMessage" friendlyname="ResponseMessage" stage="ResponseMessage1" />
+      <output type="text" name="in_batch_id" friendlyname="in_batch_id" stage="in_batch_id1" />
+      <output type="text" name="Reference" friendlyname="Reference" stage="Reference1" />
+    </outputs>
+    <onsuccess>72328cc8-4c7a-4e5d-9458-756f971019e1</onsuccess>
+    <resource object="Get Config Details" action="Posting" />
+  </stage>
+  <stage stageid="72328cc8-4c7a-4e5d-9458-756f971019e1" name="Post to CBA" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Post failed transactions to flexcube</narrative>
+    <displayx>180</displayx>
+    <displayy>555</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="batchCollection" friendlyname="batchCollection" expr="[col_batchCollectionFailed]" />
+      <input type="text" name="ConnectionString" friendlyname="ConnectionString" expr="&quot;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST= 10.4.184.72)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ENTBLLDBUAT)));User Id=MESB_SADC;Password=MESB_SADC;&quot;" />
+      <input type="flag" name="EnablePosting" friendlyname="EnablePosting" expr="" />
+      <input type="text" name="ProcessName" friendlyname="ProcessName" expr="&quot;ELR TOKEN PURCAHSE REVERSAL DD &quot; &amp;Today()" />
+    </inputs>
+    <outputs>
+      <output type="text" name="ResponseCode" friendlyname="ResponseCode" stage="ResponseCode" />
+      <output type="text" name="ResponseMessage" friendlyname="ResponseMessage" stage="ResponseMessage" />
+      <output type="text" name="in_batch_id" friendlyname="in_batch_id" stage="in_batch_id" />
+      <output type="text" name="Reference" friendlyname="Reference" stage="Reference" />
+    </outputs>
+    <onsuccess>d82e8b12-7f62-46dc-827d-888b1bf1a83f</onsuccess>
+    <resource object="Get Config Details" action="Posting" />
+  </stage>
+  <stage stageid="5a301bf7-2dc9-47f9-b1c5-aaa4d3fefee2" name="in_reference" type="Data">
+    <narrative>the reference from posting utility</narrative>
+    <displayx>-465</displayx>
+    <displayy>255</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ede3f5b9-57de-45d2-b43c-7449ef5db183" name="in_batch_id" type="Data">
+    <narrative>The batch ID from posting utility</narrative>
+    <displayx>-405</displayx>
+    <displayy>210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ffccc103-68de-4081-9fe5-c267bf8a8852" name="in_respone_message" type="Data">
+    <narrative>Response message from Flexcube</narrative>
+    <displayx>-465</displayx>
+    <displayy>210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a17b2983-c039-4de8-a6df-223a4f118f90" name="in_respone_code" type="Data">
+    <narrative>The response code from posting via flex</narrative>
+    <displayx>-465</displayx>
+    <displayy>300</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="79335ada-e200-4899-9663-7ed6700475aa" name="in_respone_code1" type="Data">
+    <narrative>A response code from the CBA</narrative>
+    <displayx>-465</displayx>
+    <displayy>345</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b0020a22-012a-47e6-97a8-cf41c9364e97" name="in_respone_message1" type="Data">
+    <narrative>A response message from the CBA</narrative>
+    <displayx>-405</displayx>
+    <displayy>300</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c5d0d9e5-14f7-48ba-b43b-312ec87713cc" name="in_batch_id1" type="Data">
+    <narrative>the batch id from posting utility</narrative>
+    <displayx>-405</displayx>
+    <displayy>255</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7c427b20-eb31-49bc-b97d-fc83188c4c8d" name="in_reference1" type="Data">
+    <narrative>A referecne from the CBA</narrative>
+    <displayx>-405</displayx>
+    <displayy>345</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="109f95b9-5817-44ca-926c-879ac5f6a106" name="Write Collection" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>write collection for failed txns successfully posted to flex</narrative>
+    <displayx>180</displayx>
+    <displayy>735</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the specified collection should be written. The default of zero indicates the currently active instance." expr="[in_handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook within which the data should be written. The default empty value indicates the current workbook within the specified instance." expr="[Workbook1]" />
+      <input type="collection" name="Collection" friendlyname="Collection" narrative="The collection containing the data which should be written to the worksheet." expr="[col_batchCollectionFailed]" />
+      <input type="text" name="Worksheet Name" friendlyname="Worksheet Name" narrative="The name of the worksheet on which the given data should be written. The default empty value indicates the current sheet within the specified workbook." expr="&quot;FAILED&quot;" />
+      <input type="text" name="Cell Reference" friendlyname="Cell Reference" narrative="The reference at which the collection should be written." expr="&quot;A1&quot;" />
+      <input type="flag" name="Include Column Names" friendlyname="Include Column Names" narrative="True to indicate that the column names from the collection should be written out as the first row; False to ignore the column names and just write out the data." expr="True" />
+    </inputs>
+    <onsuccess>7f94e2cd-f270-478f-8416-f61610d14796</onsuccess>
+    <resource object="MS Excel VBO" action="Write Collection" />
+  </stage>
+  <stage stageid="d82e8b12-7f62-46dc-827d-888b1bf1a83f" name=":Create Workbook" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>create workbook for batch posted to flex</narrative>
+    <displayx>180</displayx>
+    <displayy>600</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the workbook should be created. The default of zero indicates the currently active instance." expr="[in_handle]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook that Excel has created - this can be changed using the &quot;Save Workbook As&quot; action" stage="Workbook1" />
+    </outputs>
+    <onsuccess>c3d0119c-6866-4083-9948-1f724c1a83f0</onsuccess>
+    <resource object="MS Excel VBO" action="Create Workbook" />
+  </stage>
+  <stage stageid="309e779b-df8a-4e12-8607-c4e1eb49ec83" name="in_workbook1" type="Data">
+    <narrative>The name of the workbook</narrative>
+    <displayx>-465</displayx>
+    <displayy>390</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7f94e2cd-f270-478f-8416-f61610d14796" name="Write Collection" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>write collection for successful txns successfully posted to flex</narrative>
+    <displayx>180</displayx>
+    <displayy>780</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the specified collection should be written. The default of zero indicates the currently active instance." expr="[in_handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook within which the data should be written. The default empty value indicates the current workbook within the specified instance." expr="[Workbook1]" />
+      <input type="collection" name="Collection" friendlyname="Collection" narrative="The collection containing the data which should be written to the worksheet." expr="[col_batchCollectionSuccess]" />
+      <input type="text" name="Worksheet Name" friendlyname="Worksheet Name" narrative="The name of the worksheet on which the given data should be written. The default empty value indicates the current sheet within the specified workbook." expr="&quot;SUCCESS&quot;" />
+      <input type="text" name="Cell Reference" friendlyname="Cell Reference" narrative="The reference at which the collection should be written." expr="&quot;A1&quot;" />
+      <input type="flag" name="Include Column Names" friendlyname="Include Column Names" narrative="True to indicate that the column names from the collection should be written out as the first row; False to ignore the column names and just write out the data." expr="True" />
+    </inputs>
+    <onsuccess>a5412675-4c62-491b-9fe6-7774fefec3fa</onsuccess>
+    <resource object="MS Excel VBO" action="Write Collection" />
+  </stage>
+  <stage stageid="84cb0cf8-5c4b-4b43-aa3f-2958656fd1f3" name="Resume1" type="Resume">
+    <loginhibit onsuccess="true" />
+    <narrative>Resumes process if posting fails</narrative>
+    <displayx>30</displayx>
+    <displayy>510</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>be3a42ce-69b6-472a-af4c-4477b528c560</onsuccess>
+  </stage>
+  <stage stageid="833a6e2c-00e3-4f20-921d-437c9725cdd2" name="Resume3" type="Resume">
+    <loginhibit onsuccess="true" />
+    <narrative>Resumes process if posting fails</narrative>
+    <displayx>330</displayx>
+    <displayy>555</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>a907939e-c111-443a-9d3f-3ff97b3bd595</onsuccess>
+  </stage>
+  <stage stageid="b0339aa9-0811-4ea0-89d6-4fe9f9193aa0" name="Recover1" type="Recover">
+    <loginhibit onsuccess="true" />
+    <narrative>Recover process if posting fails</narrative>
+    <displayx>105</displayx>
+    <displayy>510</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>84cb0cf8-5c4b-4b43-aa3f-2958656fd1f3</onsuccess>
+  </stage>
+  <stage stageid="1a006876-f750-43cc-b3b1-42ffc0a95597" name="Recover3" type="Recover">
+    <loginhibit onsuccess="true" />
+    <narrative>Recover process if posting fails</narrative>
+    <displayx>255</displayx>
+    <displayy>555</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>833a6e2c-00e3-4f20-921d-437c9725cdd2</onsuccess>
+  </stage>
+  <stage stageid="be3a42ce-69b6-472a-af4c-4477b528c560" name="Loop Success" type="LoopStart">
+    <loginhibit onsuccess="true" />
+    <narrative>Loop over successful transactions</narrative>
+    <displayx>-45</displayx>
+    <displayy>510</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>fd9d1c74-129f-40ec-af75-47e667af8233</onsuccess>
+    <groupid>dc7d2e64-6f78-4364-925d-0cb3a5729e7e</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>col_batchCollectionSuccess</loopdata>
+  </stage>
+  <stage stageid="124af735-ade1-444b-be89-938946a75087" name="Loop Success" type="LoopEnd">
+    <loginhibit onsuccess="true" />
+    <narrative>End look of successful transactions
+</narrative>
+    <displayx>-270</displayx>
+    <displayy>510</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>b9a201b3-b56a-45b7-a837-dc00b223d095</onsuccess>
+    <groupid>dc7d2e64-6f78-4364-925d-0cb3a5729e7e</groupid>
+  </stage>
+  <stage stageid="a907939e-c111-443a-9d3f-3ff97b3bd595" name="Loop Failed" type="LoopStart">
+    <loginhibit onsuccess="true" />
+    <narrative>Loop over failed transactions</narrative>
+    <displayx>405</displayx>
+    <displayy>555</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>cd028ff0-5cb6-4fc9-b1ce-c5511c638550</onsuccess>
+    <groupid>ab3f7967-5118-43b5-aaba-6f487b2a02fb</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>col_batchCollectionFailed</loopdata>
+  </stage>
+  <stage stageid="fddb68c7-be22-4905-9f41-b38d1d8a2282" name="Loop Failed" type="LoopEnd">
+    <loginhibit onsuccess="true" />
+    <narrative>End loop over failed txns</narrative>
+    <displayx>630</displayx>
+    <displayy>555</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>01c09b92-1a87-45a3-97f0-64c8340f6260</onsuccess>
+    <groupid>ab3f7967-5118-43b5-aaba-6f487b2a02fb</groupid>
+  </stage>
+  <stage stageid="cd028ff0-5cb6-4fc9-b1ce-c5511c638550" name="Add Row" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Add a row to the failed txns upload file</narrative>
+    <displayx>480</displayx>
+    <displayy>555</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;col_upload_failed&quot;" />
+    </inputs>
+    <onsuccess>b03c962e-b2e6-4c03-878b-25ce5e6c7fc9</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="fd9d1c74-129f-40ec-af75-47e667af8233" name="Add Row" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Add row to upload fie for successful transactions</narrative>
+    <displayx>-120</displayx>
+    <displayy>510</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;col_upload_success&quot;" />
+    </inputs>
+    <onsuccess>55f227f4-a1bb-4e42-bc5b-98eafb9f0531</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="55f227f4-a1bb-4e42-bc5b-98eafb9f0531" name="Populate_Success" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <narrative>Populate upload file for successful transactionssssss</narrative>
+    <displayx>-195</displayx>
+    <displayy>510</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>124af735-ade1-444b-be89-938946a75087</onsuccess>
+    <steps>
+      <calculation expression="[col_batchCollectionSuccess.ACCOUNTNUMBER]" stage="col_upload_success.ACCOUNT NUMBER" />
+      <calculation expression="[col_batchCollectionSuccess.AMOUNT]" stage="col_upload_success.AMOUNT" />
+      <calculation expression="&quot;BBR&quot;" stage="col_upload_success.BBR" />
+      <calculation expression="[col_batchCollectionSuccess.BRANCHCODE]" stage="col_upload_success.BR CODE" />
+      <calculation expression="[col_batchCollectionSuccess.BRANCHCODE]" stage="col_upload_success.BR CODE1" />
+      <calculation expression="[col_batchCollectionSuccess.CURRENCY]" stage="col_upload_success.CURRENCY" />
+      <calculation expression="[col_batchCollectionSuccess.DRCRIND]" stage="col_upload_success.DRCR" />
+      <calculation expression="&quot;ECOSOURCE&quot;" stage="col_upload_success.ECOSOURCE" />
+      <calculation expression="[col_batchCollectionSuccess.LCY_AMOUNT]" stage="col_upload_success.LCY_EQUIVALENT" />
+      <calculation expression="[col_batchCollectionSuccess.NARRATION]" stage="col_upload_success.NARRATION" />
+      <calculation expression="[col_batchCollectionSuccess.RATE]" stage="col_upload_success.RATE" />
+      <calculation expression="" stage="col_upload_success.SPACE" />
+      <calculation expression="" stage="col_upload_success.SPACE1" />
+      <calculation expression="" stage="col_upload_success.SPACE2" />
+      <calculation expression="FormatDate(Today(), &quot;yyyyMMdd&quot;)" stage="col_upload_success.VALUE_DATE" />
+    </steps>
+  </stage>
+  <stage stageid="b03c962e-b2e6-4c03-878b-25ce5e6c7fc9" name="Populate Failed" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <narrative>populate failed txn upload file</narrative>
+    <displayx>555</displayx>
+    <displayy>555</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>fddb68c7-be22-4905-9f41-b38d1d8a2282</onsuccess>
+    <steps>
+      <calculation expression="[col_batchCollectionFailed.ACCOUNTNUMBER]" stage="col_upload_failed.ACCOUNT NUMBER" />
+      <calculation expression="[col_batchCollectionFailed.AMOUNT]" stage="col_upload_failed.AMOUNT" />
+      <calculation expression="&quot;BBR&quot;" stage="col_upload_failed.BBR" />
+      <calculation expression="[col_batchCollectionFailed.BRANCHCODE]" stage="col_upload_failed.BR CODE" />
+      <calculation expression="[col_batchCollectionFailed.BRANCHCODE]" stage="col_upload_failed.BR CODE1" />
+      <calculation expression="[col_batchCollectionFailed.CURRENCY]" stage="col_upload_failed.CURRENCY" />
+      <calculation expression="[col_batchCollectionFailed.DRCRIND]" stage="col_upload_failed.DRCR" />
+      <calculation expression="&quot;ECOSOURCE&quot;" stage="col_upload_failed.ECOSOURCE" />
+      <calculation expression="[col_batchCollectionFailed.LCY_AMOUNT]" stage="col_upload_failed.LCY_EQUIVALENT" />
+      <calculation expression="[col_batchCollectionFailed.NARRATION]" stage="col_upload_failed.NARRATION" />
+      <calculation expression="[col_batchCollectionFailed.RATE]" stage="col_upload_failed.RATE" />
+      <calculation expression="" stage="col_upload_failed.SPACE" />
+      <calculation expression="" stage="col_upload_failed.SPACE1" />
+      <calculation expression="" stage="col_upload_failed.SPACE2" />
+      <calculation expression="FormatDate(Today(), &quot;yyyyMMdd&quot;)" stage="col_upload_failed.VALUE_DATE" />
+    </steps>
+  </stage>
+  <stage stageid="8f52709e-2295-406b-933f-5a653e946dbc" name="Block2" type="Block">
+    <narrative>Block to recover process if it fails here</narrative>
+    <displayx>75</displayx>
+    <displayy>495</displayy>
+    <displaywidth>165</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="a74c98db-e3be-4be8-b4a3-bca2a6c03055" name="Block3" type="Block">
+    <narrative>Block to recover process if it fails here</narrative>
+    <displayx>120</displayx>
+    <displayy>540</displayy>
+    <displaywidth>165</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="25ba9aca-744e-4834-8951-cc26aca02e8f" name="Write Collection" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>write successful collection to worksheet</narrative>
+    <displayx>-270</displayx>
+    <displayy>645</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the specified collection should be written. The default of zero indicates the currently active instance." expr="[in_handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook within which the data should be written. The default empty value indicates the current workbook within the specified instance." expr="[in_workbook2]" />
+      <input type="collection" name="Collection" friendlyname="Collection" narrative="The collection containing the data which should be written to the worksheet." expr="[col_upload_success]" />
+      <input type="text" name="Worksheet Name" friendlyname="Worksheet Name" narrative="The name of the worksheet on which the given data should be written. The default empty value indicates the current sheet within the specified workbook." expr="&quot;SUCCESS&quot;" />
+      <input type="text" name="Cell Reference" friendlyname="Cell Reference" narrative="The reference at which the collection should be written." expr="&quot;A1&quot;" />
+      <input type="flag" name="Include Column Names" friendlyname="Include Column Names" narrative="True to indicate that the column names from the collection should be written out as the first row; False to ignore the column names and just write out the data." expr="True" />
+    </inputs>
+    <onsuccess>97f6e0e7-9c82-49c2-addd-cd7a5629c09a</onsuccess>
+    <resource object="MS Excel VBO" action="Write Collection" />
+  </stage>
+  <stage stageid="b9a201b3-b56a-45b7-a837-dc00b223d095" name=":Create Workbook" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Create a workbook</narrative>
+    <displayx>-270</displayx>
+    <displayy>555</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the workbook should be created. The default of zero indicates the currently active instance." expr="[in_handle]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook that Excel has created - this can be changed using the &quot;Save Workbook As&quot; action" stage="in_workbook2" />
+    </outputs>
+    <onsuccess>f56d5ab8-ffdd-4dde-92c0-af2b66afcb62</onsuccess>
+    <resource object="MS Excel VBO" action="Create Workbook" />
+  </stage>
+  <stage stageid="01c09b92-1a87-45a3-97f0-64c8340f6260" name=":Create Workbook" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Create another workbook for failed txns</narrative>
+    <displayx>630</displayx>
+    <displayy>600</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the workbook should be created. The default of zero indicates the currently active instance." expr="[in_handle]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook that Excel has created - this can be changed using the &quot;Save Workbook As&quot; action" stage="in_workbook2" />
+    </outputs>
+    <onsuccess>feb17884-1721-44be-a3c5-724657e1d702</onsuccess>
+    <resource object="MS Excel VBO" action="Create Workbook" />
+  </stage>
+  <stage stageid="50bb672c-1f8c-4fec-8515-7d8142e90cd5" name="in_workbook2" type="Data">
+    <narrative>Another name for a workbook</narrative>
+    <displayx>-405</displayx>
+    <displayy>390</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="54ec5ddf-1e72-42f9-b4f8-2af69856b3dd" name="Write Collection" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>write failed txns collections to sheet</narrative>
+    <displayx>630</displayx>
+    <displayy>690</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the specified collection should be written. The default of zero indicates the currently active instance." expr="[in_handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook within which the data should be written. The default empty value indicates the current workbook within the specified instance." expr="[in_workbook2]" />
+      <input type="collection" name="Collection" friendlyname="Collection" narrative="The collection containing the data which should be written to the worksheet." expr="[col_upload_failed]" />
+      <input type="text" name="Worksheet Name" friendlyname="Worksheet Name" narrative="The name of the worksheet on which the given data should be written. The default empty value indicates the current sheet within the specified workbook." expr="&quot;FAILED&quot;" />
+      <input type="text" name="Cell Reference" friendlyname="Cell Reference" narrative="The reference at which the collection should be written." expr="&quot;A1&quot;" />
+      <input type="flag" name="Include Column Names" friendlyname="Include Column Names" narrative="True to indicate that the column names from the collection should be written out as the first row; False to ignore the column names and just write out the data." expr="True" />
+    </inputs>
+    <onsuccess>5fdd7408-af90-4680-b46d-1e9096ba81c6</onsuccess>
+    <resource object="MS Excel VBO" action="Write Collection" />
+  </stage>
+  <stage stageid="97f6e0e7-9c82-49c2-addd-cd7a5629c09a" name="Save Workbook As" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>save workbook with successful txns</narrative>
+    <displayx>-270</displayx>
+    <displayy>690</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the workbook which should be saved resides. The default of zero indicates the currently active instance." expr="[in_handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook which should be saved" expr="[in_workbook2]" />
+      <input type="text" name="Filename" friendlyname="Filename" narrative="The full path and filename to which the workbook should be saved." expr="[in_main_path]&amp;&quot;OUTPUT\FAILED\SUCCESSFULTXNS_&quot;&amp;FormatDate(Today(), &quot;yyyyMMdd&quot;)&amp;&quot;.xlsx&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Workbook Name" friendlyname="New Workbook Name" narrative="The new workbook name which Excel will use to identify the workbook within the instance." stage="" />
+    </outputs>
+    <onsuccess>7c0ddf01-e7e9-4053-8764-1ede282d1887</onsuccess>
+    <resource object="MS Excel VBO" action="Save Workbook As" />
+  </stage>
+  <stage stageid="5fdd7408-af90-4680-b46d-1e9096ba81c6" name="Save Workbook As" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>save failed transactions workbook</narrative>
+    <displayx>630</displayx>
+    <displayy>735</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the workbook which should be saved resides. The default of zero indicates the currently active instance." expr="[in_handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook which should be saved" expr="[in_workbook2]" />
+      <input type="text" name="Filename" friendlyname="Filename" narrative="The full path and filename to which the workbook should be saved." expr="[in_main_path]&amp;&quot;OUTPUT\FAILED\FAILEDTXNS_&quot;&amp;FormatDate(Today(), &quot;yyyyMMdd&quot;)&amp;&quot;.xlsx&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Workbook Name" friendlyname="New Workbook Name" narrative="The new workbook name which Excel will use to identify the workbook within the instance." stage="" />
+    </outputs>
+    <onsuccess>b06a5ca2-cc1b-41d1-8e81-10667e61495b</onsuccess>
+    <resource object="MS Excel VBO" action="Save Workbook As" />
+  </stage>
+  <stage stageid="a5412675-4c62-491b-9fe6-7774fefec3fa" name="Save Workbook As" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Save workbook for reporting purposes</narrative>
+    <displayx>180</displayx>
+    <displayy>825</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the workbook which should be saved resides. The default of zero indicates the currently active instance." expr="[in_handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook which should be saved" expr="[Workbook1]" />
+      <input type="text" name="Filename" friendlyname="Filename" narrative="The full path and filename to which the workbook should be saved." expr="[in_main_path]&amp;&quot;OUTPUT\SUCCESS\BATCHUPLOAD_&quot;&amp;FormatDate(Today(), &quot;yyyyMMdd&quot;)&amp;&quot;.xlsx&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Workbook Name" friendlyname="New Workbook Name" narrative="The new workbook name which Excel will use to identify the workbook within the instance." stage="" />
+    </outputs>
+    <onsuccess>91834ab4-4a0b-4656-8962-9309e200b664</onsuccess>
+    <resource object="MS Excel VBO" action="Save Workbook As" />
+  </stage>
+  <stage stageid="7c0ddf01-e7e9-4053-8764-1ede282d1887" name="Anchor13" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>690</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>c7609788-4e3c-4ffa-8570-a906524dc6b0</onsuccess>
+  </stage>
+  <stage stageid="c7609788-4e3c-4ffa-8570-a906524dc6b0" name="Anchor14" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>-210</displayx>
+    <displayy>555</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>72328cc8-4c7a-4e5d-9458-756f971019e1</onsuccess>
+  </stage>
+  <stage stageid="b06a5ca2-cc1b-41d1-8e81-10667e61495b" name="Anchor15" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>630</displayx>
+    <displayy>870</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>91834ab4-4a0b-4656-8962-9309e200b664</onsuccess>
+  </stage>
+  <stage stageid="f56d5ab8-ffdd-4dde-92c0-af2b66afcb62" name=":Create Worksheet" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Create a worksheet for successful txns</narrative>
+    <displayx>-270</displayx>
+    <displayy>600</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the worksheet should be created. The default of zero indicates the currently active instance." expr="[in_handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook in which the sheet should be created - The default empty value indicates the currently active workbook on the specified instance." expr="&quot;Book1&quot;" />
+      <input type="text" name="Worksheet Name" friendlyname="Worksheet Name" narrative="The name of the sheet which should be activated. The default empty text value indicates that the currently active sheet should be, er, activated, making this a no-op." expr="&quot;SUCCESS&quot;" />
+    </inputs>
+    <onsuccess>25ba9aca-744e-4834-8951-cc26aca02e8f</onsuccess>
+    <resource object="MS Excel VBO" action="Create Worksheet" />
+  </stage>
+  <stage stageid="feb17884-1721-44be-a3c5-724657e1d702" name=":Create Worksheet" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Create worksheet for failed txns</narrative>
+    <displayx>630</displayx>
+    <displayy>645</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the worksheet should be created. The default of zero indicates the currently active instance." expr="[in_handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook in which the sheet should be created - The default empty value indicates the currently active workbook on the specified instance." expr="[in_workbook2]" />
+      <input type="text" name="Worksheet Name" friendlyname="Worksheet Name" narrative="The name of the sheet which should be activated. The default empty text value indicates that the currently active sheet should be, er, activated, making this a no-op." expr="&quot;FAILED&quot;" />
+    </inputs>
+    <onsuccess>54ec5ddf-1e72-42f9-b4f8-2af69856b3dd</onsuccess>
+    <resource object="MS Excel VBO" action="Create Worksheet" />
+  </stage>
+  <stage stageid="c3d0119c-6866-4083-9948-1f724c1a83f0" name=":Create Worksheet" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>create worksheet for successful trasnactions posted to flex</narrative>
+    <displayx>180</displayx>
+    <displayy>645</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the worksheet should be created. The default of zero indicates the currently active instance." expr="[in_handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook in which the sheet should be created - The default empty value indicates the currently active workbook on the specified instance." expr="[Workbook1]" />
+      <input type="text" name="Worksheet Name" friendlyname="Worksheet Name" narrative="The name of the sheet which should be activated. The default empty text value indicates that the currently active sheet should be, er, activated, making this a no-op." expr="&quot;SUCCESS&quot;" />
+    </inputs>
+    <onsuccess>ab03dbd5-3a2a-4730-aa81-79565243fcb9</onsuccess>
+    <resource object="MS Excel VBO" action="Create Worksheet" />
+  </stage>
+  <stage stageid="ab03dbd5-3a2a-4730-aa81-79565243fcb9" name=":Create Worksheet" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>create worksheet for failed trasnactions posted to flex</narrative>
+    <displayx>180</displayx>
+    <displayy>690</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the worksheet should be created. The default of zero indicates the currently active instance." expr="[in_handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook in which the sheet should be created - The default empty value indicates the currently active workbook on the specified instance." expr="[Workbook1]" />
+      <input type="text" name="Worksheet Name" friendlyname="Worksheet Name" narrative="The name of the sheet which should be activated. The default empty text value indicates that the currently active sheet should be, er, activated, making this a no-op." expr="&quot;FAILED&quot;" />
+    </inputs>
+    <onsuccess>109f95b9-5817-44ca-926c-879ac5f6a106</onsuccess>
+    <resource object="MS Excel VBO" action="Create Worksheet" />
+  </stage>
+  <stage stageid="91834ab4-4a0b-4656-8962-9309e200b664" name="Close All Instances" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Closes excel</narrative>
+    <displayx>180</displayx>
+    <displayy>870</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>ec549e1f-3147-4428-bdad-f2811d8a59ec</onsuccess>
+    <resource object="MS Excel VBO" action="Close All Instances" />
+  </stage>
+  <stage stageid="f91cbf51-935b-44fe-946a-a8c63af018fc" name="Get Mid Rate" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Object used to get the mid rate for ELR from flex</narrative>
+    <displayx>90</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Currency" friendlyname="Currency" expr="&quot;LRD&quot;" />
+      <input type="text" name="BranchCode" friendlyname="BranchCode" expr="&quot;J98&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="MIDRATE" friendlyname="MIDRATE" stage="col_midrate" />
+    </outputs>
+    <onsuccess>b48197a7-f21b-4425-ac70-5c7258b251bf</onsuccess>
+    <resource object="Get Config Details" action="Get Mid Rate" />
+  </stage>
+  <stage stageid="b6732640-e20f-4291-bbd0-290b1c3ef15c" name="col_midrate" type="Collection">
+    <narrative>The LRD USD col_midrate from flexcube</narrative>
+    <displayx>-465</displayx>
+    <displayy>435</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="cf632d03-b2c2-4c52-af9d-e1e6480b57d5" name="in_overall_total" type="Data">
+    <narrative>The overall total used debited</narrative>
+    <displayx>-405</displayx>
+    <displayy>435</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ec549e1f-3147-4428-bdad-f2811d8a59ec" name="Loop col_Files" type="LoopStart">
+    <loginhibit onsuccess="true" />
+    <narrative>Loop over col_Files in input folder</narrative>
+    <displayx>180</displayx>
+    <displayy>915</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>c1c8bebb-f0a9-421d-be90-a8aa6a852414</onsuccess>
+    <groupid>e7b35cd9-3ee8-4484-8fd8-345a6b5b3149</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>col_Files</loopdata>
+  </stage>
+  <stage stageid="f4577723-efbb-4eaa-a0f0-6dca6d0c06b8" name="Loop col_Files" type="LoopEnd">
+    <loginhibit onsuccess="true" />
+    <narrative>End loop over col_Files in input folder</narrative>
+    <displayx>180</displayx>
+    <displayy>1005</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>b92cdf8e-afc0-41bc-bde9-e05fa64497cc</onsuccess>
+    <groupid>e7b35cd9-3ee8-4484-8fd8-345a6b5b3149</groupid>
+  </stage>
+  <stage stageid="7aa085d6-787b-470a-8eb6-ef81d0912e93" name="Block4" type="Block">
+    <narrative>Block to house al data items</narrative>
+    <displayx>-495</displayx>
+    <displayy>-210</displayy>
+    <displaywidth>120</displaywidth>
+    <displayheight>660</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="dc4408fb-7cf8-4927-89b5-0c80e609dad8" name="Copy File" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Copies input file to processed folder</narrative>
+    <displayx>255</displayx>
+    <displayy>180</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="File Path" friendlyname="File Path" narrative="The full path to the file to be copied" expr="[path]" />
+      <input type="text" name="Destination Path" friendlyname="Destination Path" narrative="The path of the directory to copy the file to" expr="[in_main_path]&amp;&quot;PROCESSED\&quot;" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" friendlyname="Success" narrative="True if successful" stage="" />
+      <output type="text" name="Message" friendlyname="Message" narrative="An error message if unsuccessful" stage="" />
+    </outputs>
+    <onsuccess>53a6a1d4-1c39-4281-97ee-11a6d6464eca</onsuccess>
+    <resource object="Utility - File Management" action="Copy File" />
+  </stage>
+  <stage stageid="8106ca16-962a-45fd-be3e-c23bcac8c368" name="Anchor17" type="Anchor">
+    <narrative>
+    </narrative>
+    <displayx>360</displayx>
+    <displayy>1050</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>b92cdf8e-afc0-41bc-bde9-e05fa64497cc</onsuccess>
+  </stage>
+  <stage stageid="b48197a7-f21b-4425-ac70-5c7258b251bf" name="Get Files" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Get the input files dropped in the specified folder</narrative>
+    <displayx>90</displayx>
+    <displayy>0</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Folder" friendlyname="Folder" narrative="The folder in which to look for files" expr="[in_main_path]&amp;&quot;INPUT\&quot;" />
+      <input type="text" name="Patterns CSV" friendlyname="Patterns CSV" narrative="The comma seperated list of wildcard patterns" expr="&quot;*xlsx&quot;" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" friendlyname="Success" narrative="True if successful" stage="in_success" />
+      <output type="text" name="Message" friendlyname="Message" narrative="A message if unsuccessful" stage="in_message" />
+      <output type="collection" name="Files" friendlyname="Files" narrative="The collection of files found" stage="col_Files" />
+    </outputs>
+    <onsuccess>88983b4d-ae6b-4e74-b542-2d1ee9cdd45a</onsuccess>
+    <resource object="Utility - File Management" action="Get Files" />
+  </stage>
+  <stage stageid="388b26fc-7fa0-46ab-9f09-3329587c6e04" name="in_message" type="Data">
+    <narrative>Response message from the aciion</narrative>
+    <displayx>-465</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="cc852fe3-3914-4bcb-a76d-fb76b36c2380" name="in_path" type="Data">
+    <narrative>A temporary variable used to assign the current path</narrative>
+    <displayx>-405</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c1c8bebb-f0a9-421d-be90-a8aa6a852414" name="Delete Files" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>Delete all files in input folder</narrative>
+    <displayx>180</displayx>
+    <displayy>960</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Folder" friendlyname="Folder" narrative="The path from which to delete the files" expr="[in_main_path]&amp;&quot;INPUT\&quot;" />
+      <input type="text" name="Pattern" friendlyname="Pattern" narrative="The wildcard pattern of files to delete" expr="&quot;*.xlsx&quot;" />
+    </inputs>
+    <onsuccess>f4577723-efbb-4eaa-a0f0-6dca6d0c06b8</onsuccess>
+    <resource object="Utility - File Management" action="Delete Files" />
+  </stage>
+</process>

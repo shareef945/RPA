@@ -1,0 +1,720 @@
+﻿<process name="CD-DudChequeAlerts_v1.0" version="1.0" bpversion="6.5.0.12573" narrative="Sends sms/email alerts to customers that have issued dud cheques" byrefcollection="true" preferredid="8b4bc340-e636-487a-9424-2f729e514488">
+  <view>
+    <camerax>0</camerax>
+    <cameray>0</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="9aa882f8-c9f1-4c06-9044-fdde514a9c6b" type="Normal" published="False">
+    <name>Process File</name>
+    <view>
+      <camerax>139</camerax>
+      <cameray>144</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="c2d8ceab-24fd-495c-b28c-be96568c68e5" name="Start" type="Start">
+    <loginhibit onsuccess="true" />
+    <narrative>the start of the process</narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>e8bab596-349b-4a6f-a440-f66b2f756745</onsuccess>
+  </stage>
+  <stage stageid="c3228c72-5821-467c-92b5-7cf6d8acd3c0" name="End" type="End">
+    <loginhibit onsuccess="true" />
+    <narrative>the end of the process</narrative>
+    <displayx>15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="274ef4a7-e2d7-44c5-9e92-7b07817f9747" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="d6522188-ec3b-46db-bbc7-6ada438b77db" name="Process File" type="SubSheetInfo">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>Gets data and sends alert</narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="e8bab596-349b-4a6f-a440-f66b2f756745" name="Process File" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <narrative>the main process itself</narrative>
+    <displayx>15</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>c3228c72-5821-467c-92b5-7cf6d8acd3c0</onsuccess>
+    <processid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</processid>
+  </stage>
+  <stage stageid="92901c11-3ccf-4905-99c9-5e8cef77661d" name="Start" type="Start">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>the start of the process</narrative>
+    <displayx>15</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>d61c5616-6ab7-4dd6-8c62-9bab54af9fe1</onsuccess>
+  </stage>
+  <stage stageid="42af4408-e60c-4779-bec5-40248665cd27" name="End" type="End">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>End of the process</narrative>
+    <displayx>0</displayx>
+    <displayy>345</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="54884999-3bbf-4318-9caa-e9399db7e3dd" name="in_main_path" type="Data">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>the main root path</narrative>
+    <displayx>-480</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">E:\AWA RPA\DUD CHEQUE ALERT\</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c95efd18-c9cf-4a56-b577-80c03eb95f71" name="loop_input_folder" type="LoopStart">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Loops input folder to get files</narrative>
+    <displayx>90</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>deefab7f-bc0e-4c06-a786-2e7266a71451</onsuccess>
+    <groupid>bfffcda0-c24e-46af-bee9-14315448a87a</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>col_files</loopdata>
+  </stage>
+  <stage stageid="17efceb8-842e-4f9d-bade-4413f45660d4" name="loop_input_folder" type="LoopEnd">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>end of  the loop</narrative>
+    <displayx>90</displayx>
+    <displayy>345</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>42af4408-e60c-4779-bec5-40248665cd27</onsuccess>
+    <groupid>bfffcda0-c24e-46af-bee9-14315448a87a</groupid>
+  </stage>
+  <stage stageid="d61c5616-6ab7-4dd6-8c62-9bab54af9fe1" name="Get Files" type="Action">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Gets all files in the input folder</narrative>
+    <displayx>15</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Folder" friendlyname="Folder" narrative="The folder in which to look for files" expr="[in_main_path]&amp;&quot;\INPUT&quot;" />
+      <input type="text" name="Patterns CSV" friendlyname="Patterns CSV" narrative="The comma seperated list of wildcard patterns" expr="&quot;*.txt&quot;" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" friendlyname="Success" narrative="True if successful" stage="in_success" />
+      <output type="text" name="Message" friendlyname="Message" narrative="A message if unsuccessful" stage="in_message2" />
+      <output type="collection" name="Files" friendlyname="Files" narrative="The collection of files found" stage="col_files" />
+    </outputs>
+    <onsuccess>c95efd18-c9cf-4a56-b577-80c03eb95f71</onsuccess>
+    <resource object="Utility - File Management" action="Get Files" />
+  </stage>
+  <stage stageid="2fbeecca-bfd2-4aa8-8521-2fe43b99681b" name="in_success" type="Data">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>success flag from stage</narrative>
+    <displayx>-360</displayx>
+    <displayy>15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="eecc3315-b321-4156-bd87-17d0061d6350" name="in_message2" type="Data">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>response message</narrative>
+    <displayx>-480</displayx>
+    <displayy>15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="72bb5afb-f491-47d3-91e2-d6d1a70aba7b" name="col_files" type="Collection">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>a collection of all the files</narrative>
+    <displayx>-480</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="625878a4-a3a5-4c71-9a89-96ecc246156e" name="Read Data" type="Action">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>the data from the file</narrative>
+    <displayx>90</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="File Path" friendlyname="File Path" narrative="The file to read" expr="[col_files.Path]" />
+      <input type="number" name="Start Line" friendlyname="Start Line" narrative="The first line to read" expr="0" />
+      <input type="number" name="End Line" friendlyname="End Line" narrative="The last line to read" expr="[in_number_of_lines]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" friendlyname="Success" narrative="True is the read was successful" stage="in_success1" />
+      <output type="text" name="Message" friendlyname="Message" narrative="The exception detail if the read was unsuccessful" stage="in_message1" />
+      <output type="collection" name="Lines" friendlyname="Lines" narrative="The lines read - the collection contains a single text column 'Line'" stage="col_data" />
+      <output type="number" name="Line Count" friendlyname="Line Count" narrative="The number of lines read" stage="in_line_count" />
+      <output type="flag" name="End of File" friendlyname="End of File" narrative="True if the end of the file was reached before the 'End Line' was reached" stage="out_end_of_file" />
+    </outputs>
+    <onsuccess>91275741-6397-41c0-9890-1b5a8b9aeab3</onsuccess>
+    <resource object="Utility - File Management" action="Read Lines From File" />
+  </stage>
+  <stage stageid="2b039779-02d5-487e-b704-07da6a61fff3" name="col_data" type="Collection">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>a collection of the data</narrative>
+    <displayx>-420</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="364b7b7b-6cd1-4859-8aa3-24dd2bf12502" name="in_message1" type="Data">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>response message froms stage</narrative>
+    <displayx>-480</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a579410d-053a-456c-b429-7b0eabf9c4d5" name="in_success1" type="Data">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>response message from stage</narrative>
+    <displayx>-420</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ba084b41-4d22-48ff-b3b7-c9aa61d60782" name="in_line_count" type="Data">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>the count of the lines</narrative>
+    <displayx>-360</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a59ee871-9e91-4960-a3d7-028b0c69313d" name="out_end_of_file" type="Data">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>end of file flag</narrative>
+    <displayx>-420</displayx>
+    <displayy>15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7b0625f1-709b-4056-ba7b-c503ce410e82" name="in_number_of_lines" type="Data">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>The maximum number of lines the collection can hold</narrative>
+    <displayx>-420</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>1000</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="392ea60c-c63d-4cea-a199-8358bce8b88b" name="Split Text" type="Action">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Splits texts by | delimiter</narrative>
+    <displayx>165</displayx>
+    <displayy>75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Text to Split" friendlyname="Text to Split" narrative="The text to split" expr="[col_data.Line]" />
+      <input type="text" name="Split Char" friendlyname="Split Char" narrative="The split delimiter" expr="&quot;|&quot;" />
+      <input type="text" name="Collection Field Name" friendlyname="Collection Field Name" narrative="The name of the field for the resulting collection" expr="&quot;Line&quot;" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Split Values" friendlyname="Split Values" narrative="The resulting collection containing the split values" stage="col_split_data" />
+    </outputs>
+    <onsuccess>75d10f0d-e177-4f03-bd20-c5e895822103</onsuccess>
+    <resource object="Utility - Strings" action="Split Text" />
+  </stage>
+  <stage stageid="97387736-dc93-41b1-90d9-3eda5bf67cd9" name="col_split_data" type="Collection">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>a collection of the data split by the delimiter</narrative>
+    <displayx>-360</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Line" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="75d10f0d-e177-4f03-bd20-c5e895822103" name="Read Collection Field" type="Action">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>reads the second collection field</narrative>
+    <displayx>165</displayx>
+    <displayy>120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Row Index" friendlyname="Row Index" narrative="The row index within the collection to read from. The index is from 0 to N-1 (where N is the total number of rows in the collection)." expr="14" />
+      <input type="collection" name="Collection" friendlyname="Collection" narrative="The collection to read." expr="[col_split_data]" />
+      <input type="text" name="Field Name" friendlyname="Field Name" narrative="The field within the collection to read." expr="&quot;Line&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Value Read" friendlyname="Value Read" narrative="The value of the requested field as text." stage="in_phone_number" />
+    </outputs>
+    <onsuccess>c9275901-8468-4cdf-966d-31670eda2007</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Read Collection Field" />
+  </stage>
+  <stage stageid="c9275901-8468-4cdf-966d-31670eda2007" name="Read Collection Field" type="Action">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>reads the third collection field</narrative>
+    <displayx>165</displayx>
+    <displayy>165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="Row Index" friendlyname="Row Index" narrative="The row index within the collection to read from. The index is from 0 to N-1 (where N is the total number of rows in the collection)." expr="15" />
+      <input type="collection" name="Collection" friendlyname="Collection" narrative="The collection to read." expr="[col_split_data]" />
+      <input type="text" name="Field Name" friendlyname="Field Name" narrative="The field within the collection to read." expr="&quot;Line&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Value Read" friendlyname="Value Read" narrative="The value of the requested field as text." stage="in_message" />
+    </outputs>
+    <onsuccess>a31c3043-3236-46df-ae0f-ab1ad4b8f734</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Read Collection Field" />
+  </stage>
+  <stage stageid="46c5ff57-d792-42d0-afab-455594cab758" name="in_phone_number" type="Data">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>the phone paramenter</narrative>
+    <displayx>-450</displayx>
+    <displayy>330</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1c407461-e3a8-403f-a270-3bf32253f5a4" name="in_message" type="Data">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>the text parameter</narrative>
+    <displayx>-375</displayx>
+    <displayy>330</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="91275741-6397-41c0-9890-1b5a8b9aeab3" name="Loop over all data" type="LoopStart">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Looping over all data
+</narrative>
+    <displayx>165</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>4b0119b7-5801-4d44-addb-d1bc9cd900af</onsuccess>
+    <groupid>8bcbc66b-c0c2-4e63-8a47-2f8fec097932</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>col_data</loopdata>
+  </stage>
+  <stage stageid="59b0334a-d208-4764-9d53-5fb2b14de735" name="Loop over all data" type="LoopEnd">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Loops over all data</narrative>
+    <displayx>165</displayx>
+    <displayy>300</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>74866647-cbd5-4994-be04-5d4fb265d46d</onsuccess>
+    <groupid>8bcbc66b-c0c2-4e63-8a47-2f8fec097932</groupid>
+  </stage>
+  <stage stageid="74866647-cbd5-4994-be04-5d4fb265d46d" name="Delete File" type="Action">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Delete Files after sending sms</narrative>
+    <displayx>165</displayx>
+    <displayy>345</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="File Name" friendlyname="File Name" narrative="The full path to the file to delete" expr="[col_files.Path]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" friendlyname="Success" narrative="True if successful" stage="" />
+      <output type="text" name="Message" friendlyname="Message" narrative="An error message if unsuccessful" stage="" />
+    </outputs>
+    <onsuccess>17efceb8-842e-4f9d-bade-4413f45660d4</onsuccess>
+    <resource object="Utility - File Management" action="Delete File" />
+  </stage>
+  <stage stageid="0771051e-d473-4c92-9f8e-4b48020c1a35" name="Block1" type="Block">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>block to house variables</narrative>
+    <displayx>-525</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>210</displaywidth>
+    <displayheight>330</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="25a94c8c-23d3-4f52-8c3f-f8bafab3a05d" name="Block2" type="Block">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>block to house api params</narrative>
+    <displayx>-525</displayx>
+    <displayy>300</displayy>
+    <displaywidth>210</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="deefab7f-bc0e-4c06-a786-2e7266a71451" name="Copy File" type="Action">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Copies file to processed folder</narrative>
+    <displayx>90</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="File Path" friendlyname="File Path" narrative="The full path to the file to be copied" expr="[col_files.Path]" />
+      <input type="text" name="Destination Path" friendlyname="Destination Path" narrative="The path of the directory to copy the file to" expr="[in_main_path]&amp;&quot;\PROCESSED&quot;" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" friendlyname="Success" narrative="True if successful" stage="in_success2" />
+      <output type="text" name="Message" friendlyname="Message" narrative="An error message if unsuccessful" stage="in_success3" />
+    </outputs>
+    <onsuccess>625878a4-a3a5-4c71-9a89-96ecc246156e</onsuccess>
+    <resource object="Utility - File Management" action="Copy File" />
+  </stage>
+  <stage stageid="4813ac3c-2f71-4bf4-a056-35393665d383" name="in_success2" type="Data">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>response message from stage</narrative>
+    <displayx>-360</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="69939531-ec98-4821-96f7-fe5ab8f67929" name="in_success3" type="Data">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>response message from stage</narrative>
+    <displayx>-480</displayx>
+    <displayy>105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4b0119b7-5801-4d44-addb-d1bc9cd900af" name="is blank?" type="Decision">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>checks to see if row is blank?</narrative>
+    <displayx>255</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[col_data.Line] = &quot;&quot;" />
+    <ontrue>deb5f7a1-9d05-41a2-a49e-5bc7d7b618f7</ontrue>
+    <onfalse>392ea60c-c63d-4cea-a199-8358bce8b88b</onfalse>
+  </stage>
+  <stage stageid="deb5f7a1-9d05-41a2-a49e-5bc7d7b618f7" name="Anchor1" type="Anchor">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>255</displayx>
+    <displayy>300</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>59b0334a-d208-4764-9d53-5fb2b14de735</onsuccess>
+  </stage>
+  <stage stageid="69ca95aa-bfc9-413e-81cc-400ae1f290d9" name="Call API" type="Action">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Calling the API</narrative>
+    <displayx>165</displayx>
+    <displayy>255</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Address URL" friendlyname="Address URL" narrative="The URL to send the HTTP data to" expr="[in_complete_api]" />
+      <input type="text" name="Body" friendlyname="Body" narrative="The body text of the HTTP request" expr="&quot;&quot;" />
+      <input type="flag" name="Use Proxy" friendlyname="Use Proxy" narrative="Set true if you need to use a proxy" expr="False" />
+      <input type="text" name="Content Type" friendlyname="Content Type" narrative="The content type of the HTTP request." expr="&quot;text&quot;" />
+      <input type="text" name="Method" friendlyname="Method" narrative="The method of the HTTP request." expr="&quot;GET&quot;" />
+      <input type="text" name="Proxy URL" friendlyname="Proxy URL" narrative="OPTIONAL: The proxy url" expr="" />
+      <input type="text" name="Proxy Username" friendlyname="Proxy Username" narrative="OPTIONAL: The proxy username" expr="" />
+      <input type="password" name="Proxy Password" friendlyname="Proxy Password" narrative="OPTIONAL: The proxy password" expr="" />
+      <input type="collection" name="Headers" friendlyname="Headers" narrative="OPTIONAL: Headers" expr="" />
+      <input type="text" name="Accept" friendlyname="Accept" narrative="OPTIONAL: Accept" expr="" />
+      <input type="text" name="Username" friendlyname="Username" narrative="OPTIONAL: Basic Authentication username" expr="" />
+      <input type="password" name="Password" friendlyname="Password" narrative="OPTIONAL: Basic Authenction password" expr="" />
+      <input type="text" name="Certificate ID" friendlyname="Certificate ID" narrative="OPTIONAL: The id of the client authentication certificate" expr="" />
+      <input type="flag" name="Force Pre Authorization" friendlyname="Force Pre Authorization" narrative="OPTIONAL: Force the request to send the authorization headers" expr="" />
+      <input type="flag" name="File URL" friendlyname="File URL" narrative="OPTIONAL: Is the JSON Body a file instead?" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Result" friendlyname="Result" narrative="The result from the Post query." stage="out_api_result" />
+      <output type="text" name="Headers as Json" friendlyname="Headers as Json" narrative="The returned headers response as Json" stage="out_api_result_json" />
+    </outputs>
+    <onsuccess>59b0334a-d208-4764-9d53-5fb2b14de735</onsuccess>
+    <resource object="Utility - HTTP" action="HTTP Request" />
+  </stage>
+  <stage stageid="a31c3043-3236-46df-ae0f-ab1ad4b8f734" name="Populate API" type="Calculation">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Formulating the API</narrative>
+    <displayx>165</displayx>
+    <displayy>210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>69ca95aa-bfc9-413e-81cc-400ae1f290d9</onsuccess>
+    <calculation expression="[in_api_root]&amp;[in_api_phone]&amp;[in_phone_number]&amp;[in_api_text]&amp;[in_message]&amp;[in_api_auth]&#xA;" stage="in_complete_api" />
+  </stage>
+  <stage stageid="28555b41-26b4-4baf-baeb-54f7a470b29c" name="in_api_root" type="Data">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>the root api </narrative>
+    <displayx>-420</displayx>
+    <displayy>105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">https://eghportal-03/smsapi/api/?</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="0ae95032-32d0-4a39-8dcc-54c45353ed1a" name="in_api_phone" type="Data">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>the phone number parameter</narrative>
+    <displayx>-480</displayx>
+    <displayy>150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">phone=</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="4021331d-d5ab-4e63-a555-ebab2fb6f901" name="in_api_auth" type="Data">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>the auth of the api</narrative>
+    <displayx>-360</displayx>
+    <displayy>105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">&amp;userid=rpa&amp;password=1d0042e9-2f95-4463-87e1-3837aa299efa</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5f798f53-b02e-4e6c-9242-9718829e4e4c" name="in_api_text" type="Data">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>the text parameter</narrative>
+    <displayx>-420</displayx>
+    <displayy>150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">&amp;text=</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8f6dc8b5-c1c8-4cd2-8d39-099cd3efb0ae" name="in_complete_api" type="Data">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>the complete api</narrative>
+    <displayx>-360</displayx>
+    <displayy>150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8ac378bb-d27b-4e6e-a41a-1aa0effca128" name="out_api_result" type="Data">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>the output result</narrative>
+    <displayx>-420</displayx>
+    <displayy>195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="67694e79-670c-418c-a28a-7e6e5271c4f3" name="out_api_result_json" type="Data">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>the results in json</narrative>
+    <displayx>-480</displayx>
+    <displayy>195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5cc15b1d-31fc-4351-9071-187784dd186f" name="Block3" type="Block">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-15</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>75</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="e66c773b-ff0e-4a92-85ed-ae10e8d25e54" name="Recover2" type="Recover">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Recover frome error</narrative>
+    <displayx>15</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>560f06b9-011f-4cce-aa33-eab2aa207748</onsuccess>
+  </stage>
+  <stage stageid="560f06b9-011f-4cce-aa33-eab2aa207748" name="SE:Exception2" type="Exception">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Checks to see if files are present</narrative>
+    <displayx>-60</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception localized="yes" type="System Exception" detail="&quot;Resource Name: Files,Error: Please check folder and ensure files are available&quot;" />
+  </stage>
+  <stage stageid="1eb92770-85b1-4793-85e6-d52787aebb7c" name="Recover1" type="Recover">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Catches API failure</narrative>
+    <displayx>240</displayx>
+    <displayy>255</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>0db3b04b-e720-4583-aa7d-36daa2288c92</onsuccess>
+    <attempts>5</attempts>
+  </stage>
+  <stage stageid="d7075aef-c414-4f04-8428-61fa109137c0" name="Block3" type="Block">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <narrative>To capture exception with calling API</narrative>
+    <displayx>105</displayx>
+    <displayy>240</displayy>
+    <displaywidth>165</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="0db3b04b-e720-4583-aa7d-36daa2288c92" name="SE:Exception1" type="Exception">
+    <subsheetid>9aa882f8-c9f1-4c06-9044-fdde514a9c6b</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Throws exception if API is offline</narrative>
+    <displayx>315</displayx>
+    <displayy>255</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception localized="yes" type="System Exception" detail="&quot;Resource Name: API,Error: Please check status of API&quot;" />
+  </stage>
+</process>

@@ -1,0 +1,3877 @@
+﻿<process name="Principal Settlements - Refactored" version="1.0" bpversion="6.5.0.12573" narrative="Processess principal settlemetns for branches and sub agents" byrefcollection="true" preferredid="73a30664-22ab-416d-b956-90d7d40e64dd">
+  <view>
+    <camerax>44</camerax>
+    <cameray>-48</cameray>
+    <zoom version="2">1.5625</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="6b43f386-66e5-4b4e-b346-85c3507645b5" type="Normal" published="False">
+    <name>Process File</name>
+    <view>
+      <camerax>155</camerax>
+      <cameray>975</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f" type="Normal" published="False">
+    <name>SendMail</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="802a31e6-0fab-4fdb-bc71-0b4c98e67051" name="Stage1" type="ProcessInfo">
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="7b962f0e-5daf-466f-8eda-58ef67c3012e" name="End" type="End">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="c5c15624-9392-4c81-977b-6863899efc99" name="Start" type="Start">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>-120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="affiliate_code" stage="affiliate" />
+    </inputs>
+    <onsuccess>1aa1e0e3-d378-45cb-8971-56ddf5ec21ef</onsuccess>
+  </stage>
+  <stage stageid="b561c9e1-24c7-4df3-bc23-ea3951e5d210" name="Process File" type="SubSheetInfo">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="1aa1e0e3-d378-45cb-8971-56ddf5ec21ef" name="Process File" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>-75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="affiliate_code" friendlyname="affiliate_code" expr="[affiliate_code]" />
+    </inputs>
+    <onsuccess>7b962f0e-5daf-466f-8eda-58ef67c3012e</onsuccess>
+    <processid>6b43f386-66e5-4b4e-b346-85c3507645b5</processid>
+  </stage>
+  <stage stageid="de867472-bfde-4e80-8ba8-7123d7b16f23" name="Utility - Collection Manipulation::Remove Empty Rows" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>270</displayy>
+    <displaywidth>90</displaywidth>
+    <displayheight>60</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Collection In" friendlyname="Collection In" narrative="The collection to remove empty rows from" expr="[CSV Values]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Collection Out" friendlyname="Collection Out" narrative="The collection with the empty rows removed" stage="CSV Values" />
+    </outputs>
+    <onsuccess>21fba247-c751-462d-9199-799d61851ffc</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Remove Empty Rows" />
+  </stage>
+  <stage stageid="40e2e197-040b-432d-b755-50df66135c29" name="Set Column Names" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>825</displayx>
+    <displayy>270</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Input Collection" friendlyname="Input Collection" narrative="The collection with the column to rename" expr="[CSV Values]" />
+      <input type="collection" name="Expected Fields/Columns" friendlyname="Expected Fields/Columns" narrative="The expected column names" expr="[Column Names]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Output Collection" friendlyname="Output Collection" narrative="The collection with the renamed column" stage="CSV Values" />
+    </outputs>
+    <onsuccess>de867472-bfde-4e80-8ba8-7123d7b16f23</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Set Column Names From Expected Collection" />
+  </stage>
+  <stage stageid="cbecfe28-f5f7-4952-99ec-91cb745e29f1" name="Utility - File Management::Get CSV Text As Collection" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>825</displayx>
+    <displayy>210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="CSV File Path" friendlyname="CSV File Path" narrative="The full path to the CSV file" expr="[Main folder path]&amp;[affiliate]&amp;&quot;\PROCESSED\COMBINED\&quot;&amp;&quot;COMBINED_&quot;&amp;FormatDateTime(Today(), &quot;dd_MM_yyyy&quot;)&amp;&quot;.csv&quot;" />
+      <input type="flag" name="First Line Is Header" friendlyname="First Line Is Header" narrative="Set True if you want to treat the first line as a header" expr="True" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="CSV Values" friendlyname="CSV Values" narrative="The collection populated with the values of the CSV file" stage="CSV Values" />
+    </outputs>
+    <onsuccess>40e2e197-040b-432d-b755-50df66135c29</onsuccess>
+    <resource object="Utility - File Management" action="Get CSV Text As Collection" />
+  </stage>
+  <stage stageid="c36c71e9-bd49-4815-8a56-1aa67ba91d61" name="Utility - File Management::Get CSV Text As Collection" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>375</displayx>
+    <displayy>75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="CSV File Path" friendlyname="CSV File Path" narrative="The full path to the CSV file" expr="[path]" />
+      <input type="flag" name="First Line Is Header" friendlyname="First Line Is Header" narrative="Set True if you want to treat the first line as a header" expr="True" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="CSV Values" friendlyname="CSV Values" narrative="The collection populated with the values of the CSV file" stage="Combined Collection" />
+    </outputs>
+    <onsuccess>a7453d18-0dbb-463b-a0a4-ead3b1175d90</onsuccess>
+    <resource object="Utility - File Management" action="Get CSV Text As Collection" />
+  </stage>
+  <stage stageid="511848a9-d569-465b-a2b0-846b92024dfd" name="First Loop" type="Decision">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>480</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[Temp Variable] = 0" />
+    <ontrue>d6fbbc2d-a64e-4486-89de-b027a0dcd7cb</ontrue>
+    <onfalse>30804b2a-aba3-42cb-b18b-4bfb007d24a2</onfalse>
+  </stage>
+  <stage stageid="a7453d18-0dbb-463b-a0a4-ead3b1175d90" name="set temp variable" type="Calculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>375</displayx>
+    <displayy>120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>fef453bf-132a-422b-b9e4-2d2d5a1ebc1f</onsuccess>
+    <calculation expression="1" stage="Temp Variable" />
+  </stage>
+  <stage stageid="784d4b31-601d-4c3c-842a-3c2cdf01a010" name="Utility - Collection Manipulation::Append Rows to Collection" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>555</displayx>
+    <displayy>165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Main Collection" friendlyname="Main Collection" narrative="The collection to append to." expr="[Combined Collection]" />
+      <input type="collection" name="Collection to Append" friendlyname="Collection to Append" narrative="The collection to append." expr="[Temp Collection]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Combined Collection" friendlyname="Combined Collection" narrative="The combined collection." stage="Combined Collection" />
+    </outputs>
+    <onsuccess>fef453bf-132a-422b-b9e4-2d2d5a1ebc1f</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Append Rows to Collection" />
+  </stage>
+  <stage stageid="30804b2a-aba3-42cb-b18b-4bfb007d24a2" name="Utility - File Management::Get CSV Text As Collection" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>555</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="CSV File Path" friendlyname="CSV File Path" narrative="The full path to the CSV file" expr="[path]" />
+      <input type="flag" name="First Line Is Header" friendlyname="First Line Is Header" narrative="Set True if you want to treat the first line as a header" expr="True" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="CSV Values" friendlyname="CSV Values" narrative="The collection populated with the values of the CSV file" stage="Temp Collection" />
+    </outputs>
+    <onsuccess>784d4b31-601d-4c3c-842a-3c2cdf01a010</onsuccess>
+    <resource object="Utility - File Management" action="Get CSV Text As Collection" />
+  </stage>
+  <stage stageid="7dc3d047-b088-4886-a828-e4959aa5f77c" name="Assigning Filename to variable" type="LoopStart">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>480</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>e883c09e-9e4f-4f59-af6f-0829cad60390</onsuccess>
+    <groupid>5c261a4d-7075-4697-9c67-99fb5d9030d5</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>file details</loopdata>
+  </stage>
+  <stage stageid="fef453bf-132a-422b-b9e4-2d2d5a1ebc1f" name="Assigning Filename to variable" type="LoopEnd">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>375</displayx>
+    <displayy>165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>de73b357-96ee-46ad-aa67-98e3af084d31</onsuccess>
+    <groupid>5c261a4d-7075-4697-9c67-99fb5d9030d5</groupid>
+  </stage>
+  <stage stageid="e883c09e-9e4f-4f59-af6f-0829cad60390" name="Assign to Path" type="Calculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>480</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>511848a9-d569-465b-a2b0-846b92024dfd</onsuccess>
+    <calculation expression="[file details.Path]" stage="path" />
+  </stage>
+  <stage stageid="de73b357-96ee-46ad-aa67-98e3af084d31" name="MS Excel VBO::Create Instance" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>375</displayx>
+    <displayy>210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="flag" name="Enable Events" friendlyname="Enable Events" narrative="Flag to indicate that events should be enabled / disabled on the attached instance - defaulted to True" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="handle" friendlyname="handle" narrative="An integer which can be used to identify the created instance in subsequent actions" stage="handle" />
+    </outputs>
+    <onsuccess>b4167a88-86f8-48e0-8515-32187296cdf6</onsuccess>
+    <resource object="MS Excel VBO" action="Create Instance" />
+  </stage>
+  <stage stageid="b4167a88-86f8-48e0-8515-32187296cdf6" name="MS Excel VBO::Create Workbook" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>450</displayx>
+    <displayy>210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the workbook should be created. The default of zero indicates the currently active instance." expr="[handle]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook that Excel has created - this can be changed using the &quot;Save Workbook As&quot; action" stage="Workbook Name" />
+    </outputs>
+    <onsuccess>72e2228b-07f3-417f-b5ca-f9dc6268588e</onsuccess>
+    <resource object="MS Excel VBO" action="Create Workbook" />
+  </stage>
+  <stage stageid="72e2228b-07f3-417f-b5ca-f9dc6268588e" name="MS Excel VBO::Activate Worksheet" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>525</displayx>
+    <displayy>210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the worksheet which should be activated resides. The default of zero indicates the currently active instance." expr="[handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook in which the sheet exists - The default empty value indicates the currently active workbook on the specified instance." expr="[Workbook Name]" />
+      <input type="text" name="Worksheet Name" friendlyname="Worksheet Name" narrative="The name of the sheet which should be activated. The default empty text value indicates that the currently active sheet should be, er, activated, making this a no-op." expr="&quot;Concatenated CSV&quot;" />
+      <input type="flag" name="Create If Missing?" friendlyname="Create If Missing?" narrative="True to create the sheet if it isn't present on the specified workbook; False to not do so." expr="True" />
+    </inputs>
+    <onsuccess>14a9b3c3-d459-4fb1-8241-4c4f7102204c</onsuccess>
+    <resource object="MS Excel VBO" action="Activate Worksheet" />
+  </stage>
+  <stage stageid="14a9b3c3-d459-4fb1-8241-4c4f7102204c" name="MS Excel VBO::Write Collection" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>600</displayx>
+    <displayy>210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the specified collection should be written. The default of zero indicates the currently active instance." expr="[handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook within which the data should be written. The default empty value indicates the current workbook within the specified instance." expr="[Workbook Name]" />
+      <input type="text" name="Worksheet Name" friendlyname="Worksheet Name" narrative="The name of the worksheet on which the given data should be written. The default empty value indicates the current sheet within the specified workbook." expr="&quot;Concatenated CSV&quot;" />
+      <input type="collection" name="Collection" friendlyname="Collection" narrative="The collection containing the data which should be written to the worksheet." expr="[Combined Collection]" />
+      <input type="text" name="Cell Reference" friendlyname="Cell Reference" narrative="The reference at which the collection should be written." expr="&quot;A1&quot;" />
+      <input type="flag" name="Include Column Names" friendlyname="Include Column Names" narrative="True to indicate that the column names from the collection should be written out as the first row; False to ignore the column names and just write out the data." expr="&quot;True&quot;" />
+    </inputs>
+    <onsuccess>be0bfc34-f8a4-4fc8-8a5d-7e0c57e2c0c4</onsuccess>
+    <resource object="MS Excel VBO" action="Write Collection" />
+  </stage>
+  <stage stageid="be0bfc34-f8a4-4fc8-8a5d-7e0c57e2c0c4" name="MS Excel VBO::Save Workbook As CSV" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>675</displayx>
+    <displayy>210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the workbook which should be saved resides. The default of zero indicates the currently active instance." expr="[handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook which should be saved" expr="[Workbook Name]" />
+      <input type="text" name="Filename" friendlyname="Filename" narrative="The full path and filename to which the workbook should be saved." expr="[Main folder path]&amp;[affiliate]&amp;&quot;\PROCESSED\COMBINED\&quot;&amp;&quot;COMBINED_&quot;&amp;FormatDateTime(Today(), &quot;dd_MM_yyyy&quot;)&amp;&quot;.csv&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Workbook Name" friendlyname="New Workbook Name" narrative="The new workbook name which Excel will use to identify the workbook within the instance." stage="" />
+    </outputs>
+    <onsuccess>f9d3cb1b-222f-4c2a-aba0-04a61b1ad428</onsuccess>
+    <resource object="MS Excel VBO" action="Save Workbook As CSV" />
+  </stage>
+  <stage stageid="f9d3cb1b-222f-4c2a-aba0-04a61b1ad428" name="MS Excel VBO::Close Instance" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>750</displayx>
+    <displayy>210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance to be closed. Zero indicates the currently active instance." expr="[handle]" />
+      <input type="flag" name="Save Changes" friendlyname="Save Changes" narrative="True to save the changes to the open workbooks on the instance, False to discard any changes. Default is False." expr="" />
+    </inputs>
+    <onsuccess>cbecfe28-f5f7-4952-99ec-91cb745e29f1</onsuccess>
+    <resource object="MS Excel VBO" action="Close Instance" />
+  </stage>
+  <stage stageid="d6fbbc2d-a64e-4486-89de-b027a0dcd7cb" name="Anchor9" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>375</displayx>
+    <displayy>30</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>c36c71e9-bd49-4815-8a56-1aa67ba91d61</onsuccess>
+  </stage>
+  <stage stageid="c824fea1-3031-4761-a776-df13f4945100" name="CSV Values" type="Collection">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="42afcb79-475b-4b7a-a2bb-e545cab6f662" name="Column Names" type="Collection">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Column Name" type="text" />
+    </collectioninfo>
+    <initialvalue>
+      <row>
+        <field name="Column Name" type="text" value="From Date" />
+      </row>
+      <row>
+        <field name="Column Name" type="text" value="To Date" />
+      </row>
+      <row>
+        <field name="Column Name" type="text" value="Branch Name" />
+      </row>
+      <row>
+        <field name="Column Name" type="text" value="Branch Code" />
+      </row>
+      <row>
+        <field name="Column Name" type="text" value="Pool AC" />
+      </row>
+      <row>
+        <field name="Column Name" type="text" value="Country" />
+      </row>
+      <row>
+        <field name="Column Name" type="text" value="DestCurrency" />
+      </row>
+      <row>
+        <field name="Column Name" type="text" value="Total No of Transactions" />
+      </row>
+      <row>
+        <field name="Column Name" type="text" value="Total Amount" />
+      </row>
+      <row>
+        <field name="Column Name" type="text" value="Assigned No" />
+      </row>
+      <row>
+        <field name="Column Name" type="text" value="Assigned Amount" />
+      </row>
+      <row>
+        <field name="Column Name" type="text" value="Outstanding No" />
+      </row>
+      <row>
+        <field name="Column Name" type="text" value="Outstanding Amount" />
+      </row>
+      <row>
+        <field name="Column Name" type="text" value="Processed No" />
+      </row>
+      <row>
+        <field name="Column Name" type="text" value="Processed Amount" />
+      </row>
+    </initialvalue>
+  </stage>
+  <stage stageid="0ac4abee-0cbb-42c1-a4b7-181c35dbc9c2" name="file details" type="Collection">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="82e7a8ff-e408-41b4-8292-c51805214e88" name="path" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="80010426-4ba2-4706-8912-54a9b26aa7cc" name="handle" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="758e8b2b-d811-4335-83f1-3e76be88ba90" name="Workbook Name" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7c6ab304-329e-47b7-9ee1-e2c03145b6b2" name="Temp Collection" type="Collection">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ccefb0f7-3e71-474a-8750-481d5fa07c24" name="Combined Collection" type="Collection">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="782f0a3e-b5da-47f7-a9b1-ca47f6606f38" name="Temp Variable" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b8ea9cc3-39c3-4e72-9827-6fbd7678891d" name="Block2" type="Block">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-525</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>210</displaywidth>
+    <displayheight>990</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="816305a6-d738-4401-a609-246271df9cb9" name="batchCollection1" type="Collection">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="AFFILIATECODE" type="text" />
+      <field name="EXTERNALREFNO" type="text" />
+      <field name="NARRATION" type="text" />
+      <field name="AMOUNT" type="number" />
+      <field name="ACCOUNTNUMBER" type="text" />
+      <field name="CURRENCY" type="text" />
+      <field name="BRANCHCODE" type="text" />
+      <field name="DRCRIND" type="text" />
+      <field name="RATE" type="text" />
+      <field name="LCY_AMOUNT" type="number" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="70baa4ec-5898-4d73-8327-272e07123ef9" name="filter" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="198277b5-ce7f-4e02-b8f7-e0de5a8161e9" name="filtered collection" type="Collection">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b31839df-608a-43d6-b0d5-3553d54c8419" name="Get CSVs" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-435</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Folder" friendlyname="Folder" narrative="The folder in which to look for files" expr="[Main folder path]&amp;[affiliate]&amp;&quot;\&quot;&amp;&quot;INPUT&quot; &#xA;&#xA;" />
+      <input type="text" name="Patterns CSV" friendlyname="Patterns CSV" narrative="The comma seperated list of wildcard patterns" expr="&quot;*.csv&quot;" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" friendlyname="Success" narrative="True if successful" stage="" />
+      <output type="text" name="Message" friendlyname="Message" narrative="A message if unsuccessful" stage="" />
+      <output type="collection" name="Files" friendlyname="Files" narrative="The collection of files found" stage="file details" />
+    </outputs>
+    <onsuccess>74e09a6e-df69-4bfb-ac0c-b5b9eb5ca3f2</onsuccess>
+    <resource object="Utility - File Management" action="Get Files" />
+  </stage>
+  <stage stageid="8b882672-e5a4-4201-ac0a-98bd2374a575" name="Main folder path" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">E:\RPAFILES\UNITY LINK\</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="11d50ea3-2f31-49d5-8aef-f9efd7241c90" name="affiliate" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>165</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7bc9fdb8-8b98-4040-aa80-c1436120b2cf" name="Relocating Files" type="LoopStart">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>330</displayx>
+    <displayy>-195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>b9322d39-5e23-4577-88b6-cbe7a6fece41</onsuccess>
+    <groupid>93ef525a-f3d1-4ddf-8439-8e5babdd4282</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>file details</loopdata>
+  </stage>
+  <stage stageid="e362e60c-6923-4ee1-b8de-7fe5ec102199" name="Relocating Files" type="LoopEnd">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>330</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>e7c087cf-be64-43e4-9e46-04d9557714c1</onsuccess>
+    <groupid>93ef525a-f3d1-4ddf-8439-8e5babdd4282</groupid>
+  </stage>
+  <stage stageid="b9322d39-5e23-4577-88b6-cbe7a6fece41" name="Assign To Path" type="Calculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>330</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>b0bac756-24c0-4139-9609-569a385853fe</onsuccess>
+    <calculation expression="[file details.Path]" stage="path" />
+  </stage>
+  <stage stageid="b0bac756-24c0-4139-9609-569a385853fe" name="Utility - File Management::Copy File" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>330</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="File Path" friendlyname="File Path" narrative="The full path to the file to be copied" expr="[path]" />
+      <input type="text" name="Destination Path" friendlyname="Destination Path" narrative="The path of the directory to copy the file to" expr="[Main folder path]&amp;[affiliate]&amp;&quot;\PROCESSED&quot;" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" friendlyname="Success" narrative="True if successful" stage="" />
+      <output type="text" name="Message" friendlyname="Message" narrative="An error message if unsuccessful" stage="" />
+    </outputs>
+    <onsuccess>e362e60c-6923-4ee1-b8de-7fe5ec102199</onsuccess>
+    <resource object="Utility - File Management" action="Copy File" />
+  </stage>
+  <stage stageid="e7c087cf-be64-43e4-9e46-04d9557714c1" name="Utility - File Management::Get Files" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>405</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Folder" friendlyname="Folder" narrative="The folder in which to look for files" expr="[Main folder path]&amp;[affiliate]&amp;&quot;\&quot;&amp;&quot;INPUT&quot; " />
+      <input type="text" name="Patterns CSV" friendlyname="Patterns CSV" narrative="The comma seperated list of wildcard patterns" expr="&quot;*.csv&quot;" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" friendlyname="Success" narrative="True if successful" stage="" />
+      <output type="text" name="Message" friendlyname="Message" narrative="A message if unsuccessful" stage="" />
+      <output type="collection" name="Files" friendlyname="Files" narrative="The collection of files found" stage="file details" />
+    </outputs>
+    <onsuccess>7dc3d047-b088-4886-a828-e4959aa5f77c</onsuccess>
+    <resource object="Utility - File Management" action="Get Files" />
+  </stage>
+  <stage stageid="cede7f56-1ebf-426f-a287-ad7318c083ad" name="Unity Link::Get Settings" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-570</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="affiliate_code" friendlyname="affiliate_code" expr="[affiliate]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Records" friendlyname="Records" stage="Settings" />
+    </outputs>
+    <onsuccess>d7eaff1a-02b3-435e-bd07-449c2be05d39</onsuccess>
+    <resource object="Unity Link" action="Get Settings" />
+  </stage>
+  <stage stageid="f6de3cd0-147b-4d11-80d0-e2d92362f5d7" name="Settings" type="Collection">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d7eaff1a-02b3-435e-bd07-449c2be05d39" name="Unity Link::Get Branch Details" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-525</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="affiliate_code" friendlyname="affiliate_code" expr="[affiliate]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Records" friendlyname="Records" stage="Branch Details" />
+    </outputs>
+    <onsuccess>47963f36-509e-4903-a84b-9c1dedde94cc</onsuccess>
+    <resource object="Unity Link" action="Get Branch Details" />
+  </stage>
+  <stage stageid="0e849a40-a0b8-4959-94f9-aca14baf1966" name="Branch Details" type="Collection">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="47963f36-509e-4903-a84b-9c1dedde94cc" name="Unity Link::Get Subagent Details" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-480</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="affiliate_code" friendlyname="affiliate_code" expr="[affiliate]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Records" friendlyname="Records" stage="Subagent Details" />
+    </outputs>
+    <onsuccess>b31839df-608a-43d6-b0d5-3553d54c8419</onsuccess>
+    <resource object="Unity Link" action="Get Subagent Details" />
+  </stage>
+  <stage stageid="8ca81380-ff60-47bd-a165-8301dedea8ed" name="Subagent Details" type="Collection">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="603d9979-229b-4710-9f55-df3fff79e4c0" name="Block1" type="Block">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>-585</displayy>
+    <displaywidth>165</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="fc74ed9a-191e-4af0-87d0-eb99c13f0bcf" name="Cant connect to DB" type="Recover">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>-570</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>f3ef140a-1ca2-4a86-a5e0-31b1ec87a9ee</onsuccess>
+    <attempts>3</attempts>
+  </stage>
+  <stage stageid="0e59bc71-fe15-4dc7-9741-3f82dbb8e158" name="Block1" type="Block">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>-540</displayy>
+    <displaywidth>165</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="41ee782c-f27d-4bc3-ba9a-4336df6aa2d3" name="Cant connect to DB" type="Recover">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>-525</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>18b9ed2c-0095-4983-9208-9394b219a74a</onsuccess>
+    <attempts>3</attempts>
+  </stage>
+  <stage stageid="98d334f4-7f11-4b99-99ce-6ca9055b83a7" name="Block1" type="Block">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>-495</displayy>
+    <displaywidth>165</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="559fd601-cab2-42a9-917e-70cabba87c9d" name="Cant connect to DB" type="Recover">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>-480</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>354bb1c2-4ff9-46ee-a50c-00a30050d8bc</onsuccess>
+    <attempts>3</attempts>
+  </stage>
+  <stage stageid="f3ef140a-1ca2-4a86-a5e0-31b1ec87a9ee" name="Retry" type="Resume">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>-570</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>7954692b-89b3-4202-8869-e310ec3eb84d</onsuccess>
+  </stage>
+  <stage stageid="18b9ed2c-0095-4983-9208-9394b219a74a" name="Retry" type="Resume">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>-525</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>2400803e-9d09-4039-ba9f-6605098eed86</onsuccess>
+  </stage>
+  <stage stageid="354bb1c2-4ff9-46ee-a50c-00a30050d8bc" name="Retry" type="Resume">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>-480</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>9bb949ac-2db3-41e4-8577-49603b1847ae</onsuccess>
+  </stage>
+  <stage stageid="a5ef352a-da9e-4b3f-9089-281b4b1eff79" name="Can't Connect to DB" type="Exception">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception localized="yes" type="System Exception" detail="&quot;Cant read settings from DB, please ensure DB is live and try again&quot;" />
+  </stage>
+  <stage stageid="620aebe2-0087-4245-9bd7-c2fde863c57c" name="Can't Connect to DB" type="Exception">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception localized="yes" type="" detail="&quot;Cant read subagents from DB, please ensure DB is live and try again&quot;" />
+  </stage>
+  <stage stageid="bfc53f69-201f-430b-b793-347138be50f0" name="Can't Connect to DB" type="Exception">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>0</displayx>
+    <displayy>195</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception localized="yes" type="" detail="&quot;Cant read branches from DB, please ensure DB is live and try again&quot;" />
+  </stage>
+  <stage stageid="9bb949ac-2db3-41e4-8577-49603b1847ae" name="Anchor1" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>-660</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>dd00b3f0-5d99-4a34-b4a7-663e70852794</onsuccess>
+  </stage>
+  <stage stageid="dd00b3f0-5d99-4a34-b4a7-663e70852794" name="Anchor2" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>-660</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>1e429671-8cc8-4702-93d1-6c30e9ceec4f</onsuccess>
+  </stage>
+  <stage stageid="18f49d82-994e-4846-934c-409d8837e23e" name="Anchor3" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>-570</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>cede7f56-1ebf-426f-a287-ad7318c083ad</onsuccess>
+  </stage>
+  <stage stageid="1b0bedb9-bccd-4b1c-ab87-e71f5c1f47d7" name="Anchor4" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>-525</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>d7eaff1a-02b3-435e-bd07-449c2be05d39</onsuccess>
+  </stage>
+  <stage stageid="1e429671-8cc8-4702-93d1-6c30e9ceec4f" name="Anchor5" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>-480</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>47963f36-509e-4903-a84b-9c1dedde94cc</onsuccess>
+  </stage>
+  <stage stageid="2400803e-9d09-4039-ba9f-6605098eed86" name="Anchor6" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>-630</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>5f8f31e2-b071-4c74-b713-bad8a7b819f2</onsuccess>
+  </stage>
+  <stage stageid="7954692b-89b3-4202-8869-e310ec3eb84d" name="Anchor7" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>-600</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>ef79ed6c-ef82-481b-8c20-98ec17008d1f</onsuccess>
+  </stage>
+  <stage stageid="5f8f31e2-b071-4c74-b713-bad8a7b819f2" name="Anchor8" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>-630</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>1b0bedb9-bccd-4b1c-ab87-e71f5c1f47d7</onsuccess>
+  </stage>
+  <stage stageid="ef79ed6c-ef82-481b-8c20-98ec17008d1f" name="Anchor10" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>-600</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>18f49d82-994e-4846-934c-409d8837e23e</onsuccess>
+  </stage>
+  <stage stageid="21b6bfb5-eaaa-403c-a854-71c4743e28ef" name="Cant Access Files" type="Exception">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>-255</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception localized="yes" type="" detail="&quot;Cant access files, please ensure files are available and try again&quot;" />
+  </stage>
+  <stage stageid="21fba247-c751-462d-9199-799d61851ffc" name="Loop over CSV" type="LoopStart">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>330</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>e29e2ba2-8403-4cb2-b191-687daa948511</onsuccess>
+    <groupid>84d14302-3c64-4953-9b88-626ea4cee1ca</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>CSV Values</loopdata>
+  </stage>
+  <stage stageid="1b06e3ae-febc-4490-a761-17a180cd6af5" name="Loop over CSV" type="LoopEnd">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>705</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>fa8d2cbe-0995-4e33-9f21-fc68ef96b23d</onsuccess>
+    <groupid>84d14302-3c64-4953-9b88-626ea4cee1ca</groupid>
+  </stage>
+  <stage stageid="6e93c0c5-38c5-45ca-aad2-042f6ade7953" name="Filter Collection" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>510</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Collection In" friendlyname="Collection In" narrative="The collection to filter." expr="[Branch Details]" />
+      <input type="text" name="Filter" friendlyname="Filter" narrative="The filter query." expr="[filter]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Collection Out" friendlyname="Collection Out" narrative="The filtered collection." stage="filtered collection" />
+    </outputs>
+    <onsuccess>22d4fb66-c829-4962-a54e-c2ee72b5cfba</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Filter Collection" />
+  </stage>
+  <stage stageid="b8b081e5-4ae4-41ba-91c0-4910add7b0eb" name="Create filter" type="Calculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>465</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>6e93c0c5-38c5-45ca-aad2-042f6ade7953</onsuccess>
+    <calculation expression="&quot;[branch_code] like '&quot; &amp;[branch code]&amp;&quot;'&quot;" stage="filter" />
+  </stage>
+  <stage stageid="c45714aa-74da-4b04-9842-bfce1d21c096" name="Assign Branch Code" type="Calculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>420</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>b8b081e5-4ae4-41ba-91c0-4910add7b0eb</onsuccess>
+    <calculation expression="[CSV Values.Branch Code]" stage="branch code" />
+  </stage>
+  <stage stageid="7ea28532-717b-4a45-a39f-e794764727cc" name="branch code" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>300</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="22d4fb66-c829-4962-a54e-c2ee72b5cfba" name="Assign Variables" type="MultipleCalculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>555</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>a7b29bbf-b08f-4c93-bcda-048af33ed077</onsuccess>
+    <steps>
+      <calculation expression="[filtered collection.branch_name]" stage="branch_name" />
+      <calculation expression="[filtered collection.flex_branchcode]" stage="flex_branchcode" />
+    </steps>
+  </stage>
+  <stage stageid="5b561574-2f51-4891-b44b-f96904d3d591" name="branch_name" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>345</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="705a98b0-5316-412a-91af-54d4d13ee2c7" name="flex_branchcode" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>300</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d142a569-60e0-4fa4-baa9-c60dd13d4b6c" name="Populate Branch Credit" type="MultipleCalculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>780</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>d1d19e12-4313-4609-ae33-3fc1a797929a</onsuccess>
+    <steps>
+      <calculation expression="[cr_principal_gl]" stage="batchCollection.ACCOUNTNUMBER" />
+      <calculation expression="[affiliate]" stage="batchCollection.AFFILIATECODE" />
+      <calculation expression="RndUp([processed_amount],2)" stage="batchCollection.AMOUNT" />
+      <calculation expression="[flex_branchcode]" stage="batchCollection.BRANCHCODE" />
+      <calculation expression="[lcy_code]" stage="batchCollection.CURRENCY" />
+      <calculation expression="&quot;C&quot;" stage="batchCollection.DRCRIND" />
+      <calculation expression="" stage="batchCollection.EXTERNALREFNO" />
+      <calculation expression="RndUp([processed_amount],2)" stage="batchCollection.LCY_AMOUNT" />
+      <calculation expression="[branch_name] &amp;&quot; Unity Link Principal for &quot; &amp; FormatDate([value_date],&quot;ddMMyyyy&quot;)" stage="batchCollection.NARRATION" />
+      <calculation expression="1" stage="batchCollection.RATE" />
+      <calculation expression="[processed_amount]+[branch_total_txn]" stage="branch_total_txn" />
+    </steps>
+  </stage>
+  <stage stageid="f7a10622-b76d-43ea-8bc7-b24a215331d6" name="batchCollection" type="Collection">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="AFFILIATECODE" type="text" />
+      <field name="EXTERNALREFNO" type="text" />
+      <field name="NARRATION" type="text" />
+      <field name="AMOUNT" type="number" />
+      <field name="ACCOUNTNUMBER" type="text" />
+      <field name="CURRENCY" type="text" />
+      <field name="BRANCHCODE" type="text" />
+      <field name="DRCRIND" type="text" />
+      <field name="RATE" type="text" />
+      <field name="LCY_AMOUNT" type="number" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="9e85d9fd-0220-46e6-b8cc-a37f5688a46c" name="Check Subagents" type="Recover">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>435</displayx>
+    <displayy>555</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>f519ee58-4590-4fc9-9a2e-11353730df8d</onsuccess>
+  </stage>
+  <stage stageid="f519ee58-4590-4fc9-9a2e-11353730df8d" name="Continue" type="Resume">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>510</displayx>
+    <displayy>555</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>dc30bcf1-4915-44ab-a81e-009b716aa258</onsuccess>
+  </stage>
+  <stage stageid="dc30bcf1-4915-44ab-a81e-009b716aa258" name="Filter Collection" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>585</displayx>
+    <displayy>555</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Collection In" friendlyname="Collection In" narrative="The collection to filter." expr="[Subagent Details]" />
+      <input type="text" name="Filter" friendlyname="Filter" narrative="The filter query." expr="[filter]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Collection Out" friendlyname="Collection Out" narrative="The filtered collection." stage="filtered collection" />
+    </outputs>
+    <onsuccess>5d104984-03d2-4685-b92b-0d703dec3445</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Filter Collection" />
+  </stage>
+  <stage stageid="92e30430-cd93-45f5-a227-d87bff3ea07a" name="Block4" type="Block">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>540</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="642ab49d-b15a-49f3-bc6f-0b8a8b040031" name="Read Settings" type="MultipleCalculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-150</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>8a844a75-5745-485a-86b6-93edbb405a4e</onsuccess>
+    <steps>
+      <calculation expression="[Settings.lcy_code]" stage="lcy_code" />
+      <calculation expression="[Settings.treasury_exch_rate]" stage="treasury_rate" />
+      <calculation expression="[Settings.use_treasury_rate]" stage="use_rate" />
+      <calculation expression="[Settings.cr_commission_gl]" stage="cr_commission_gl" />
+      <calculation expression="[Settings.commission_gl_branch_code]" stage="commission_branch" />
+      <calculation expression="[Settings.receivable_gl]" stage="receivable_gl" />
+      <calculation expression="[Settings.cr_principal_gl]" stage="cr_principal_gl" />
+      <calculation expression="[Settings.principal_gl_branch_code]" stage="principal_branch" />
+      <calculation expression="[Settings.principal_txn_code]" stage="principal_txn_code" />
+      <calculation expression="[Settings.commission_txn_code]" stage="commission_txn_code" />
+      <calculation expression="[Settings.commission_per_txn]" stage="commission_per_txn" />
+    </steps>
+  </stage>
+  <stage stageid="80723129-250f-4582-95f1-efcd75f44572" name="lcy_code" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="db149655-5ab0-449e-85ea-881a7bc587cd" name="treasury_rate" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3d6eb20f-c335-4cc6-a981-06fefd31e9a9" name="use_rate" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="dca83372-5095-42b7-96eb-397e65fe0402" name="cr_commission_gl" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8fcf093b-de56-4597-beac-b75a4ab2e9ee" name="commission_branch" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>120</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9be0faa1-f483-4a47-8061-4a547e1d1aeb" name="receivable_gl" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="0c3df3c9-4ef6-45cc-adb6-edc6028293af" name="cr_principal_gl" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="356e4a9c-58ba-4622-b357-cce54e552bba" name="principal_branch" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>255</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3718401d-b32e-4fd8-940b-6273cb60cee7" name="principal_txn_code" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3a6f82a4-0795-4b8d-9242-a82000d7b6c3" name="commission_txn_code" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8f390ded-65bf-4715-b3ff-dd91e3119ed8" name="agent_group" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>255</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="2491301b-245d-41ba-9733-3d0c9a3db9ae" name="account_number" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>255</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b9dbae04-c464-4a42-a1e6-7d65cdb93969" name="commission_due_subagent" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>345</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6f747cd8-a10f-45a8-b6ad-9f845a8c37f0" name="Collections::Add Row" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>735</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;batchCollection&quot;" />
+    </inputs>
+    <onsuccess>d142a569-60e0-4fa4-baa9-c60dd13d4b6c</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="ef1ea1d5-31d5-4c14-9317-58fcfc69cf21" name="Missing Agent" type="Recover">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>1020</displayx>
+    <displayy>600</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>ffd445b0-8173-4ae9-9506-55462aad85d8</onsuccess>
+  </stage>
+  <stage stageid="ffd445b0-8173-4ae9-9506-55462aad85d8" name="Continue" type="Resume">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>1095</displayx>
+    <displayy>600</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>81e14044-da4a-4db8-88d6-2fb15e9c1f9a</onsuccess>
+  </stage>
+  <stage stageid="ac2d4d48-59e1-4a46-a57d-61fb7e1a1810" name="Block4" type="Block">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>555</displayx>
+    <displayy>585</displayy>
+    <displaywidth>495</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="f3e05f47-6e4b-4903-b0f8-a04379047ef3" name="Missing Agents" type="Collection">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>300</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Agent Code" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="81e14044-da4a-4db8-88d6-2fb15e9c1f9a" name="Collections::Add Row" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>1095</displayx>
+    <displayy>645</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Missing Agents&quot;" />
+    </inputs>
+    <onsuccess>13c3fd61-b7d3-46e5-8a82-3473caafd11a</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="13c3fd61-b7d3-46e5-8a82-3473caafd11a" name="Add to Missing Agents" type="Calculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>1095</displayx>
+    <displayy>705</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>1b06e3ae-febc-4490-a761-17a180cd6af5</onsuccess>
+    <calculation expression="[CSV Values.Branch Code]" stage="Missing Agents.Agent Code" />
+  </stage>
+  <stage stageid="c8e9b00c-93bb-41be-bb56-4a66024bac81" name="branch_total_txn" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>390</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a162db70-6376-4799-8f99-b52ad1f6b041" name="Populate Branch Debit" type="MultipleCalculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>750</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>5f8afeab-74bf-4e82-8962-a018dcf0fc9a</onsuccess>
+    <steps>
+      <calculation expression="[receivable_gl]" stage="batchCollection.ACCOUNTNUMBER" />
+      <calculation expression="[affiliate]" stage="batchCollection.AFFILIATECODE" />
+      <calculation expression="RndUp([branch_total_txn],2)" stage="batchCollection.AMOUNT" />
+      <calculation expression="[principal_branch]" stage="batchCollection.BRANCHCODE" />
+      <calculation expression="[lcy_code]" stage="batchCollection.CURRENCY" />
+      <calculation expression="&quot;D&quot;" stage="batchCollection.DRCRIND" />
+      <calculation expression="" stage="batchCollection.EXTERNALREFNO" />
+      <calculation expression="RndUp([branch_total_txn],2)" stage="batchCollection.LCY_AMOUNT" />
+      <calculation expression="[affiliate]&amp; &quot; TOTAL ULNK PRINC FOR &quot; &amp;FormatDate([value_date], &quot;ddMMyyyy&quot;)" stage="batchCollection.NARRATION" />
+      <calculation expression="1" stage="batchCollection.RATE" />
+    </steps>
+  </stage>
+  <stage stageid="318b04c6-fef9-4810-92c2-31b6b194f61f" name="Is Agent Group Blank?" type="Decision">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>585</displayx>
+    <displayy>645</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[agent_group] = &quot;&quot;" />
+    <ontrue>d51a8f70-309f-4729-8491-f742a24d7fd1</ontrue>
+    <onfalse>537a7201-5f91-4171-8e25-2e2a41b3f47f</onfalse>
+  </stage>
+  <stage stageid="549c9876-0af5-45de-ae43-b5cbb9f6e33e" name="Add Row" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>750</displayx>
+    <displayy>645</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;batchCollection1&quot;" />
+    </inputs>
+    <onsuccess>b4c0c6a7-c5cb-4528-b5c2-0024748b4ea8</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="537a7201-5f91-4171-8e25-2e2a41b3f47f" name="Is Agent Group the same?" type="Decision">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>675</displayx>
+    <displayy>645</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[filtered collection.group] = [agent_group]" />
+    <ontrue>33e7b09b-0f29-46c6-af27-6647221905c9</ontrue>
+    <onfalse>549c9876-0af5-45de-ae43-b5cbb9f6e33e</onfalse>
+  </stage>
+  <stage stageid="dbcff6c9-c382-4ca1-92de-60f740e15e57" name="Reset Variables" type="MultipleCalculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>900</displayx>
+    <displayy>645</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>69259e5d-1199-4bdc-ba3e-18af718adf34</onsuccess>
+    <steps>
+      <calculation expression="0" stage="Agent Count" />
+    </steps>
+  </stage>
+  <stage stageid="33e7b09b-0f29-46c6-af27-6647221905c9" name="Assign Variables" type="MultipleCalculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>675</displayx>
+    <displayy>705</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>1b06e3ae-febc-4490-a761-17a180cd6af5</onsuccess>
+    <steps>
+      <calculation expression="[filtered collection.group]" stage="agent_group" />
+      <calculation expression="ToNumber([CSV Values.Processed Amount]) + [Agent Count]" stage="Agent Count" />
+      <calculation expression="ToNumber([CSV Values.Processed Amount])+ [Subagent Total Debit]" stage="Subagent Total Debit" />
+      <calculation expression="[filtered collection.flex_branchcode]" stage="flex_branchcode" />
+      <calculation expression="[filtered collection.account_number]" stage="account_number" />
+    </steps>
+  </stage>
+  <stage stageid="c267444a-22e4-4516-87dc-3a7191512cb6" name="Agent Count" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>390</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c51ccb51-1230-45a4-8bce-2d215735d547" name="Subagent Total Debit" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>345</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b4c0c6a7-c5cb-4528-b5c2-0024748b4ea8" name="Populate Subagent Upload" type="MultipleCalculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>825</displayx>
+    <displayy>645</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>dbcff6c9-c382-4ca1-92de-60f740e15e57</onsuccess>
+    <steps>
+      <calculation expression="[account_number]" stage="batchCollection1.ACCOUNTNUMBER" />
+      <calculation expression="[affiliate]" stage="batchCollection1.AFFILIATECODE" />
+      <calculation expression="RndUp([Agent Count],2)" stage="batchCollection1.AMOUNT" />
+      <calculation expression="[flex_branchcode]" stage="batchCollection1.BRANCHCODE" />
+      <calculation expression="[lcy_code]" stage="batchCollection1.CURRENCY" />
+      <calculation expression="&quot;C&quot;" stage="batchCollection1.DRCRIND" />
+      <calculation expression="" stage="batchCollection1.EXTERNALREFNO" />
+      <calculation expression="RndUp([Agent Count],2)" stage="batchCollection1.LCY_AMOUNT" />
+      <calculation expression="[agent_group] &amp;&quot; Unity Link Princ for &quot; &amp;FormatDate([value_date], &quot;ddMMyyyy&quot;)" stage="batchCollection1.NARRATION" />
+      <calculation expression="1" stage="batchCollection1.RATE" />
+    </steps>
+  </stage>
+  <stage stageid="d51a8f70-309f-4729-8491-f742a24d7fd1" name="Anchor13" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>585</displayx>
+    <displayy>705</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>33e7b09b-0f29-46c6-af27-6647221905c9</onsuccess>
+  </stage>
+  <stage stageid="183d8888-800f-464f-b74d-e63d5a297a1c" name="Anchor14" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>975</displayx>
+    <displayy>705</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>1b06e3ae-febc-4490-a761-17a180cd6af5</onsuccess>
+  </stage>
+  <stage stageid="69259e5d-1199-4bdc-ba3e-18af718adf34" name="Assign Variables" type="MultipleCalculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>975</displayx>
+    <displayy>645</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>183d8888-800f-464f-b74d-e63d5a297a1c</onsuccess>
+    <steps>
+      <calculation expression="[filtered collection.group]" stage="agent_group" />
+      <calculation expression="ToNumber([CSV Values.Processed Amount]) + [Agent Count]" stage="Agent Count" />
+      <calculation expression="ToNumber([CSV Values.Processed Amount])+ [Subagent Total Debit]" stage="Subagent Total Debit" />
+      <calculation expression="[filtered collection.flex_branchcode]" stage="flex_branchcode" />
+      <calculation expression="[filtered collection.account_number]" stage="account_number" />
+    </steps>
+  </stage>
+  <stage stageid="5d104984-03d2-4685-b92b-0d703dec3445" name="Is filtered collection not empty?" type="Decision">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>585</displayx>
+    <displayy>600</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="Len([filtered collection.affiliate]) &gt; 2" />
+    <ontrue>318b04c6-fef9-4810-92c2-31b6b194f61f</ontrue>
+    <onfalse>ffd445b0-8173-4ae9-9506-55462aad85d8</onfalse>
+  </stage>
+  <stage stageid="f886ec5b-4f91-4974-8558-e8aaf4d5f509" name="commission_per_txn" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>435</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="14328d5e-97ca-4b27-9aad-395774f3cdc6" name="Populate Subagent Debit" type="MultipleCalculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>885</displayx>
+    <displayy>750</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>55189ffd-3948-4611-9862-baebba619d47</onsuccess>
+    <steps>
+      <calculation expression="[receivable_gl]" stage="batchCollection1.ACCOUNTNUMBER" />
+      <calculation expression="[affiliate]" stage="batchCollection1.AFFILIATECODE" />
+      <calculation expression="RndUp([Subagent Total Debit],2)" stage="batchCollection1.AMOUNT" />
+      <calculation expression="[principal_branch]" stage="batchCollection1.BRANCHCODE" />
+      <calculation expression="[lcy_code]" stage="batchCollection1.CURRENCY" />
+      <calculation expression="&quot;D&quot;" stage="batchCollection1.DRCRIND" />
+      <calculation expression="" stage="batchCollection1.EXTERNALREFNO" />
+      <calculation expression="RndUp([Subagent Total Debit],2)" stage="batchCollection1.LCY_AMOUNT" />
+      <calculation expression="&quot;SUBAGENT ULNK PRINC SETTL FOR &quot; &amp; FormatDate([value_date], &quot;ddMMyyyy&quot;)" stage="batchCollection1.NARRATION" />
+      <calculation expression="1" stage="batchCollection1.RATE" />
+    </steps>
+  </stage>
+  <stage stageid="99e39e79-4ac7-4482-871a-29c074d7b0ee" name="Affiliate Commision Share" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>390</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="14ade5c5-dabc-48ee-a9c9-3903ea88a2d7" name="Populate Last Subagent" type="MultipleCalculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>585</displayx>
+    <displayy>750</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>fb8d7a97-cdf5-4975-b5c2-37d3a549ebf2</onsuccess>
+    <steps>
+      <calculation expression="[account_number]" stage="batchCollection1.ACCOUNTNUMBER" />
+      <calculation expression="[affiliate]" stage="batchCollection1.AFFILIATECODE" />
+      <calculation expression="RndUp([Agent Count],2)" stage="batchCollection1.AMOUNT" />
+      <calculation expression="[flex_branchcode]" stage="batchCollection1.BRANCHCODE" />
+      <calculation expression="[lcy_code]" stage="batchCollection1.CURRENCY" />
+      <calculation expression="&quot;C&quot;" stage="batchCollection1.DRCRIND" />
+      <calculation expression="" stage="batchCollection1.EXTERNALREFNO" />
+      <calculation expression="RndUp([Agent Count],2)" stage="batchCollection1.LCY_AMOUNT" />
+      <calculation expression="[agent_group] &amp;&quot; Unity Link Princ for &quot; &amp;FormatDate([value_date], &quot;ddMMyyyy&quot;)" stage="batchCollection1.NARRATION" />
+      <calculation expression="1" stage="batchCollection1.RATE" />
+    </steps>
+  </stage>
+  <stage stageid="5f8afeab-74bf-4e82-8962-a018dcf0fc9a" name="Add Row" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>495</displayx>
+    <displayy>750</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;batchCollection1&quot;" />
+    </inputs>
+    <onsuccess>14ade5c5-dabc-48ee-a9c9-3903ea88a2d7</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="fb8d7a97-cdf5-4975-b5c2-37d3a549ebf2" name="Add Row" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>810</displayx>
+    <displayy>750</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;batchCollection1&quot;" />
+    </inputs>
+    <onsuccess>14328d5e-97ca-4b27-9aad-395774f3cdc6</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="fa8d2cbe-0995-4e33-9f21-fc68ef96b23d" name="Collections::Add Row" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>750</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;batchCollection&quot;" />
+    </inputs>
+    <onsuccess>a162db70-6376-4799-8f99-b52ad1f6b041</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="3f8d6bc5-a8dd-4759-9fb5-0e4506780313" name="Exceptions" type="ChoiceStart">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <groupid>b0c6c39a-69d8-4c47-8808-8c4ab77f3b32</groupid>
+    <choices>
+      <choice expression="[settings_count] = 0">
+        <name>Cant retrieve settings</name>
+        <distance>30</distance>
+        <ontrue>a5ef352a-da9e-4b3f-9089-281b4b1eff79</ontrue>
+      </choice>
+      <choice expression="[subagent_count] = 0">
+        <name>Cant retrieve subagents</name>
+        <distance>75</distance>
+        <ontrue>620aebe2-0087-4245-9bd7-c2fde863c57c</ontrue>
+      </choice>
+      <choice expression="[branch_count] = 0">
+        <name>Cant retrieve branches</name>
+        <distance>120</distance>
+        <ontrue>bfc53f69-201f-430b-b793-347138be50f0</ontrue>
+      </choice>
+    </choices>
+  </stage>
+  <stage stageid="a71d9320-eb6f-4c7c-ad65-c333b53d507d" name="Otherwise" type="ChoiceEnd">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>240</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>0783c572-d8fa-4559-8250-608738507ebe</onsuccess>
+    <groupid>b0c6c39a-69d8-4c47-8808-8c4ab77f3b32</groupid>
+  </stage>
+  <stage stageid="8a844a75-5745-485a-86b6-93edbb405a4e" name="Count Rows" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Settings&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="settings_count" />
+    </outputs>
+    <onsuccess>058a9266-d93e-46fd-b77e-96f160710e65</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="4b5a0efb-3b90-499e-a43d-c157b66e19e6" name="settings_count" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>435</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="058a9266-d93e-46fd-b77e-96f160710e65" name="Count Rows" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Branch Details&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="branch_count" />
+    </outputs>
+    <onsuccess>9d0ed47a-6fc7-459b-94c9-a1a7ac1cdef1</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="9d0ed47a-6fc7-459b-94c9-a1a7ac1cdef1" name="Count Rows" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Subagent Details&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="subagent_count" />
+    </outputs>
+    <onsuccess>46f72f64-f224-480c-9bbd-9204d77a7b5c</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="a21f5e0c-de69-43f3-84c5-c3319ce6836a" name="branch_count" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>435</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="44dfaeaa-83a4-4b04-93d7-20d962cec700" name="subagent_count" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>480</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="0783c572-d8fa-4559-8250-608738507ebe" name="Anchor15" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>240</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>f1ebe9b4-69ca-4cc4-a250-0292d9d3360f</onsuccess>
+  </stage>
+  <stage stageid="f1ebe9b4-69ca-4cc4-a250-0292d9d3360f" name="Anchor16" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>-195</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>7bc9fdb8-8b98-4040-aa80-c1436120b2cf</onsuccess>
+  </stage>
+  <stage stageid="0965613e-a771-4e94-b02b-97a7f4142914" name="commission_due_affiliate" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>480</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="87bb2d2d-20f1-4fcf-873c-4be22f1103c7" name="Upload Branch file" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>600</displayx>
+    <displayy>885</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="batchCollection" friendlyname="batchCollection" expr="[batchCollection]" />
+      <input type="text" name="ConnectionString" friendlyname="ConnectionString" expr="&quot;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST= 10.4.184.72)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ENTBLLDBUAT)));User Id=MESB_SADC;Password=MESB_SADC;&quot;" />
+      <input type="flag" name="EnablePosting" friendlyname="EnablePosting" expr="[posting_flag]" />
+      <input type="text" name="ProcessName" friendlyname="ProcessName" expr="&quot;ULNK PRINCIPAL FOR BRANCH &quot; &amp; Today()" />
+    </inputs>
+    <outputs>
+      <output type="text" name="ResponseCode" friendlyname="ResponseCode" stage="ResponseCode" />
+      <output type="text" name="ResponseMessage" friendlyname="ResponseMessage" stage="ResponseMessage" />
+      <output type="text" name="BatchId" friendlyname="BatchId" stage="BatchId" />
+      <output type="text" name="Reference" friendlyname="Reference" stage="Reference" />
+    </outputs>
+    <onsuccess>e216b876-6c6b-4ba5-b9d0-91f750553586</onsuccess>
+    <resource object="Get Config Details" action="Posting" />
+  </stage>
+  <stage stageid="1ae86291-326d-40c3-97c1-9e89e11a28ad" name="ResponseCode" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>525</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ef3ec037-1151-40d7-8933-7fb2f284901a" name="ResponseMessage" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>525</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="7cc60b02-a77d-4ea4-9492-1209f8684724" name="BatchId" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>480</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="d534887a-7074-4bc6-a745-23d49748a235" name="Reference" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>525</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="55189ffd-3948-4611-9862-baebba619d47" name="Count Rows" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>960</displayx>
+    <displayy>750</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Missing Agents&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="missing_agents_count" />
+    </outputs>
+    <onsuccess>f4cfdf64-609d-4eed-b1e8-b59cd7b066a2</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="b5f810f6-128e-4b2c-8ce5-d90de471cc1f" name="missing_agents_count" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>570</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e216b876-6c6b-4ba5-b9d0-91f750553586" name="Upload Subagent file" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>675</displayx>
+    <displayy>885</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="batchCollection" friendlyname="batchCollection" expr="[batchCollection1]" />
+      <input type="text" name="ConnectionString" friendlyname="ConnectionString" expr="&quot;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST= 10.4.184.72)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ENTBLLDBUAT)));User Id=MESB_SADC;Password=MESB_SADC;&quot;" />
+      <input type="flag" name="EnablePosting" friendlyname="EnablePosting" expr="[posting_flag]" />
+      <input type="text" name="ProcessName" friendlyname="ProcessName" expr="&quot;ULNK PRINCIPAL FOR SUBAGENT &quot; &amp;Today()" />
+    </inputs>
+    <outputs>
+      <output type="text" name="ResponseCode" friendlyname="ResponseCode" stage="ResponseCode1" />
+      <output type="text" name="ResponseMessage" friendlyname="ResponseMessage" stage="ResponseMessage1" />
+      <output type="text" name="BatchId" friendlyname="BatchId" stage="BatchId1" />
+      <output type="text" name="Reference" friendlyname="Reference" stage="Reference1" />
+    </outputs>
+    <onsuccess>3e0c8fc6-08f5-4c4b-b7b2-6aabb55f0c3b</onsuccess>
+    <resource object="Get Config Details" action="Posting" />
+  </stage>
+  <stage stageid="5fb822c3-01ea-4bd7-a3aa-f107cc39d268" name="ResponseCode1" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>615</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6a228e30-4679-4015-b222-609b4f9b5bf8" name="ResponseMessage1" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>615</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="04e846c8-24d4-4bc8-ba3f-a9aab36ee61d" name="BatchId1" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>570</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b5bcdd3e-9af4-4399-95b0-6d40bba8c215" name="Reference1" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>570</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3cf10d31-1d8c-432c-ae0a-3c0e6723491a" name="posting_flag" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>615</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue>False</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="8db32c91-edd0-47f0-b6ac-7fd8252b408b" name="Retry" type="Recover">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>600</displayx>
+    <displayy>930</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>c82a6127-dc81-459d-acf5-38c495f088d8</onsuccess>
+    <attempts>3</attempts>
+  </stage>
+  <stage stageid="c82a6127-dc81-459d-acf5-38c495f088d8" name="Retry" type="Resume">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>750</displayx>
+    <displayy>930</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>2e51bb21-c1a7-4938-b845-4ac6f9b3acaf</onsuccess>
+  </stage>
+  <stage stageid="0a31f926-6e06-4297-938b-afa601984f8a" name="Block5" type="Block">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>570</displayx>
+    <displayy>870</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>75</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="2e51bb21-c1a7-4938-b845-4ac6f9b3acaf" name="Anchor17" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>750</displayx>
+    <displayy>855</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>e3fcaed2-9243-4d90-9346-f5c1d781db10</onsuccess>
+  </stage>
+  <stage stageid="e3fcaed2-9243-4d90-9346-f5c1d781db10" name="Anchor18" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>600</displayx>
+    <displayy>855</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>87bb2d2d-20f1-4fcf-873c-4be22f1103c7</onsuccess>
+  </stage>
+  <stage stageid="8f59c16e-1743-4627-b63d-7406d2b48de5" name="MS Excel VBO::Create Workbook" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>1035</displayx>
+    <displayy>795</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the workbook should be created. The default of zero indicates the currently active instance." expr="[handle]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook that Excel has created - this can be changed using the &quot;Save Workbook As&quot; action" stage="Workbook Name" />
+    </outputs>
+    <onsuccess>62e5385c-e845-4321-ba69-4a84230b8ee5</onsuccess>
+    <resource object="MS Excel VBO" action="Create Workbook" />
+  </stage>
+  <stage stageid="62e5385c-e845-4321-ba69-4a84230b8ee5" name="MS Excel VBO::Activate Worksheet" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>960</displayx>
+    <displayy>795</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the worksheet which should be activated resides. The default of zero indicates the currently active instance." expr="[handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook in which the sheet exists - The default empty value indicates the currently active workbook on the specified instance." expr="[Workbook Name]" />
+      <input type="text" name="Worksheet Name" friendlyname="Worksheet Name" narrative="The name of the sheet which should be activated. The default empty text value indicates that the currently active sheet should be, er, activated, making this a no-op." expr="&quot;Branch Upload File&quot;" />
+      <input type="flag" name="Create If Missing?" friendlyname="Create If Missing?" narrative="True to create the sheet if it isn't present on the specified workbook; False to not do so." expr="True" />
+    </inputs>
+    <onsuccess>3f999cb0-a356-4869-8d65-6f41789181f6</onsuccess>
+    <resource object="MS Excel VBO" action="Activate Worksheet" />
+  </stage>
+  <stage stageid="3f999cb0-a356-4869-8d65-6f41789181f6" name="MS Excel VBO::Write Collection" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>885</displayx>
+    <displayy>795</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the specified collection should be written. The default of zero indicates the currently active instance." expr="[handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook within which the data should be written. The default empty value indicates the current workbook within the specified instance." expr="[Workbook Name]" />
+      <input type="text" name="Worksheet Name" friendlyname="Worksheet Name" narrative="The name of the worksheet on which the given data should be written. The default empty value indicates the current sheet within the specified workbook." expr="&quot;Branch Upload File&quot;" />
+      <input type="collection" name="Collection" friendlyname="Collection" narrative="The collection containing the data which should be written to the worksheet." expr="[batchCollection]" />
+      <input type="text" name="Cell Reference" friendlyname="Cell Reference" narrative="The reference at which the collection should be written." expr="&quot;A1&quot;" />
+      <input type="flag" name="Include Column Names" friendlyname="Include Column Names" narrative="True to indicate that the column names from the collection should be written out as the first row; False to ignore the column names and just write out the data." expr="&quot;True&quot;" />
+    </inputs>
+    <onsuccess>19654e91-2854-4845-9164-cf60775be85b</onsuccess>
+    <resource object="MS Excel VBO" action="Write Collection" />
+  </stage>
+  <stage stageid="fb7032ca-7d75-49bb-967e-c5ee5618c1c2" name="MS Excel VBO::Save Workbook As" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>495</displayx>
+    <displayy>795</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the workbook which should be saved resides. The default of zero indicates the currently active instance." expr="[handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook which should be saved" expr="[Workbook Name]" />
+      <input type="text" name="Filename" friendlyname="Filename" narrative="The full path and filename to which the workbook should be saved." expr="[Main folder path]&amp;[affiliate]&amp;&quot;\OUTPUT\ULNK_PRINC_&quot;&amp;FormatUTCDateTime(Today(), &quot;ddMMyyyy&quot;)&amp;&quot;.xlsx&quot;" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Workbook Name" friendlyname="New Workbook Name" narrative="The new workbook name which Excel will use to identify the workbook within the instance." stage="" />
+    </outputs>
+    <onsuccess>72bb3494-e57a-45f1-a2d4-fb820848fbff</onsuccess>
+    <resource object="MS Excel VBO" action="Save Workbook As" />
+  </stage>
+  <stage stageid="f4cfdf64-609d-4eed-b1e8-b59cd7b066a2" name="MS Excel VBO::Create Instance" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>1035</displayx>
+    <displayy>750</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="flag" name="Enable Events" friendlyname="Enable Events" narrative="Flag to indicate that events should be enabled / disabled on the attached instance - defaulted to True" expr="" />
+    </inputs>
+    <outputs>
+      <output type="number" name="handle" friendlyname="handle" narrative="An integer which can be used to identify the created instance in subsequent actions" stage="handle" />
+    </outputs>
+    <onsuccess>8f59c16e-1743-4627-b63d-7406d2b48de5</onsuccess>
+    <resource object="MS Excel VBO" action="Create Instance" />
+  </stage>
+  <stage stageid="72bb3494-e57a-45f1-a2d4-fb820848fbff" name="MS Excel VBO::Close Instance" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>795</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance to be closed. Zero indicates the currently active instance." expr="[handle]" />
+      <input type="flag" name="Save Changes" friendlyname="Save Changes" narrative="True to save the changes to the open workbooks on the instance, False to discard any changes. Default is False." expr="" />
+    </inputs>
+    <onsuccess>a1f769db-1572-4a2e-9821-6794522f9c36</onsuccess>
+    <resource object="MS Excel VBO" action="Close Instance" />
+  </stage>
+  <stage stageid="19654e91-2854-4845-9164-cf60775be85b" name="MS Excel VBO::Activate Worksheet" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>810</displayx>
+    <displayy>795</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the worksheet which should be activated resides. The default of zero indicates the currently active instance." expr="[handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook in which the sheet exists - The default empty value indicates the currently active workbook on the specified instance." expr="[Workbook Name]" />
+      <input type="text" name="Worksheet Name" friendlyname="Worksheet Name" narrative="The name of the sheet which should be activated. The default empty text value indicates that the currently active sheet should be, er, activated, making this a no-op." expr="&quot;Subagent Upload File&quot;" />
+      <input type="flag" name="Create If Missing?" friendlyname="Create If Missing?" narrative="True to create the sheet if it isn't present on the specified workbook; False to not do so." expr="True" />
+    </inputs>
+    <onsuccess>c9a7bfaa-09d7-4aae-abc6-156bbbdd0448</onsuccess>
+    <resource object="MS Excel VBO" action="Activate Worksheet" />
+  </stage>
+  <stage stageid="c9a7bfaa-09d7-4aae-abc6-156bbbdd0448" name="MS Excel VBO::Write Collection" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>735</displayx>
+    <displayy>795</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the specified collection should be written. The default of zero indicates the currently active instance." expr="[handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook within which the data should be written. The default empty value indicates the current workbook within the specified instance." expr="[Workbook Name]" />
+      <input type="text" name="Worksheet Name" friendlyname="Worksheet Name" narrative="The name of the worksheet on which the given data should be written. The default empty value indicates the current sheet within the specified workbook." expr="&quot;Subagent Upload File&quot;" />
+      <input type="collection" name="Collection" friendlyname="Collection" narrative="The collection containing the data which should be written to the worksheet." expr="[batchCollection1]" />
+      <input type="text" name="Cell Reference" friendlyname="Cell Reference" narrative="The reference at which the collection should be written." expr="&quot;A1&quot;" />
+      <input type="flag" name="Include Column Names" friendlyname="Include Column Names" narrative="True to indicate that the column names from the collection should be written out as the first row; False to ignore the column names and just write out the data." expr="&quot;True&quot;" />
+    </inputs>
+    <onsuccess>35ba9807-2b85-49dd-b3c3-08b2668b0a46</onsuccess>
+    <resource object="MS Excel VBO" action="Write Collection" />
+  </stage>
+  <stage stageid="35ba9807-2b85-49dd-b3c3-08b2668b0a46" name="MS Excel VBO::Activate Worksheet" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>660</displayx>
+    <displayy>795</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the worksheet which should be activated resides. The default of zero indicates the currently active instance." expr="[handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook in which the sheet exists - The default empty value indicates the currently active workbook on the specified instance." expr="[Workbook Name]" />
+      <input type="text" name="Worksheet Name" friendlyname="Worksheet Name" narrative="The name of the sheet which should be activated. The default empty text value indicates that the currently active sheet should be, er, activated, making this a no-op." expr="&quot;Missing Agents&quot;" />
+      <input type="flag" name="Create If Missing?" friendlyname="Create If Missing?" narrative="True to create the sheet if it isn't present on the specified workbook; False to not do so." expr="True" />
+    </inputs>
+    <onsuccess>33380b77-b187-4de7-900d-8afa95af241c</onsuccess>
+    <resource object="MS Excel VBO" action="Activate Worksheet" />
+  </stage>
+  <stage stageid="33380b77-b187-4de7-900d-8afa95af241c" name="MS Excel VBO::Write Collection" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>585</displayx>
+    <displayy>795</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the specified collection should be written. The default of zero indicates the currently active instance." expr="[handle]" />
+      <input type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name of the workbook within which the data should be written. The default empty value indicates the current workbook within the specified instance." expr="[Workbook Name]" />
+      <input type="text" name="Worksheet Name" friendlyname="Worksheet Name" narrative="The name of the worksheet on which the given data should be written. The default empty value indicates the current sheet within the specified workbook." expr="&quot;Missing Agents&quot;" />
+      <input type="collection" name="Collection" friendlyname="Collection" narrative="The collection containing the data which should be written to the worksheet." expr="[Missing Agents]" />
+      <input type="text" name="Cell Reference" friendlyname="Cell Reference" narrative="The reference at which the collection should be written." expr="&quot;A1&quot;" />
+      <input type="flag" name="Include Column Names" friendlyname="Include Column Names" narrative="True to indicate that the column names from the collection should be written out as the first row; False to ignore the column names and just write out the data." expr="&quot;True&quot;" />
+    </inputs>
+    <onsuccess>fb7032ca-7d75-49bb-967e-c5ee5618c1c2</onsuccess>
+    <resource object="MS Excel VBO" action="Write Collection" />
+  </stage>
+  <stage stageid="cbdf3868-d72a-4542-8bf8-acdd04cf5b29" name="Retry" type="Recover">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>675</displayx>
+    <displayy>930</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>8880a420-ce5c-4f54-85c9-d4aaab30ca83</onsuccess>
+    <attempts>3</attempts>
+  </stage>
+  <stage stageid="8880a420-ce5c-4f54-85c9-d4aaab30ca83" name="Retry" type="Resume">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>825</displayx>
+    <displayy>930</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>328fe275-5957-488f-8126-3807e875463f</onsuccess>
+  </stage>
+  <stage stageid="167fe47c-8fe9-4388-acf7-03ebc603695c" name="Block5" type="Block">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>645</displayx>
+    <displayy>870</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>75</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="328fe275-5957-488f-8126-3807e875463f" name="Anchor17" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>825</displayx>
+    <displayy>840</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>492fffac-11e4-4d91-a909-0f32eb8e5859</onsuccess>
+  </stage>
+  <stage stageid="492fffac-11e4-4d91-a909-0f32eb8e5859" name="Anchor18" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>675</displayx>
+    <displayy>840</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>e216b876-6c6b-4ba5-b9d0-91f750553586</onsuccess>
+  </stage>
+  <stage stageid="3e0c8fc6-08f5-4c4b-b7b2-6aabb55f0c3b" name="Anchor19" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>675</displayx>
+    <displayy>975</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>6626be16-f226-4439-8e08-9ab0c9b9578a</onsuccess>
+  </stage>
+  <stage stageid="754f91df-8345-49a7-b024-1f598246211e" name="AuditLogger" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>1155</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="ProcessCode" friendlyname="ProcessCode" expr="&quot;UNITY LINK PRINCIPAL&quot;" />
+      <input type="number" name="Session" friendlyname="Session" expr="1" />
+      <input type="number" name="TotalSuccesfullPosting" friendlyname="TotalSuccesfullPosting" expr="([branch_txns] + [subagent_txns]) * [post_flag]" />
+      <input type="number" name="TotalFailedPosting" friendlyname="TotalFailedPosting" expr="([branch_txns] + [subagent_txns]) * [post_flag]" />
+      <input type="number" name="TotalReversalLogged" friendlyname="TotalReversalLogged" expr="" />
+      <input type="number" name="TransCount" friendlyname="TransCount" expr="([branch_txns] + [subagent_txns]) * [post_flag]" />
+      <input type="datetime" name="StartTime" friendlyname="StartTime" expr="[start_time]" />
+      <input type="datetime" name="EndTime" friendlyname="EndTime" expr="[end_time]" />
+      <input type="number" name="SettlementDataCount" friendlyname="SettlementDataCount" expr="" />
+      <input type="number" name="FlexcubeDataCount" friendlyname="FlexcubeDataCount" expr="" />
+      <input type="number" name="OtherDataCount" friendlyname="OtherDataCount" expr="" />
+      <input type="date" name="ProcessDate" friendlyname="ProcessDate" expr="Today()" />
+    </inputs>
+    <onsuccess>36d806c0-dad6-4f29-b77f-da68c9a6ac7a</onsuccess>
+    <resource object="AuditLogger" action="Log" />
+  </stage>
+  <stage stageid="6626be16-f226-4439-8e08-9ab0c9b9578a" name="Delete Files" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>975</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Folder" friendlyname="Folder" narrative="The path from which to delete the files" expr="[Main folder path]&amp;[affiliate]&amp;&quot;\INPUT\&quot;" />
+      <input type="text" name="Pattern" friendlyname="Pattern" narrative="The wildcard pattern of files to delete" expr="&quot;*.*&quot;" />
+    </inputs>
+    <onsuccess>b90fb631-a083-4598-a46b-83cea70fa86a</onsuccess>
+    <resource object="Utility - File Management" action="Delete Files" />
+  </stage>
+  <stage stageid="407d9e3a-c57b-4363-9888-93b75cfbf753" name="Read Txn Ref" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="File Name" friendlyname="File Name" narrative="The full path the file to read the text from" expr="[txn_path]" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" friendlyname="Success" narrative="True if successful" stage="" />
+      <output type="text" name="Message" friendlyname="Message" narrative="An error message if unsuccessful" stage="" />
+      <output type="text" name="Text" friendlyname="Text" narrative="The text of the file" stage="txn_ref_number" />
+    </outputs>
+    <onsuccess>94e0e2bf-548c-4a13-8c67-f47ac9384443</onsuccess>
+    <resource object="Utility - File Management" action="Read All Text from File" />
+  </stage>
+  <stage stageid="74e09a6e-df69-4bfb-ac0c-b5b9eb5ca3f2" name="Get Reference" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-390</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Folder" friendlyname="Folder" narrative="The folder in which to look for files" expr="[Main folder path]&amp;[affiliate]&amp;&quot;\&quot;&amp;&quot;INPUT&quot; " />
+      <input type="text" name="Patterns CSV" friendlyname="Patterns CSV" narrative="The comma seperated list of wildcard patterns" expr="&quot;*.txt&quot;" />
+    </inputs>
+    <outputs>
+      <output type="flag" name="Success" friendlyname="Success" narrative="True if successful" stage="" />
+      <output type="text" name="Message" friendlyname="Message" narrative="A message if unsuccessful" stage="" />
+      <output type="collection" name="Files" friendlyname="Files" narrative="The collection of files found" stage="txn_reference" />
+    </outputs>
+    <onsuccess>c22e1b39-0ac0-4db9-a1c1-579903ad29a1</onsuccess>
+    <resource object="Utility - File Management" action="Get Files" />
+  </stage>
+  <stage stageid="9472a63a-50ed-4f6e-8ffa-13ded5748827" name="txn_reference" type="Collection">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>750</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6e3bf1d4-d873-4118-8de2-445b80a87fdd" name="txn_ref_number" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>660</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="46f72f64-f224-480c-9bbd-9204d77a7b5c" name="Loop over Reference" type="LoopStart">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>-60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>751a5a35-63ee-49e2-b116-fd0e7eb6296c</onsuccess>
+    <groupid>8ea63b3e-d08e-4256-89c4-d0bbd32f9f89</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>txn_reference</loopdata>
+  </stage>
+  <stage stageid="58c41322-e5fc-45f2-8251-ee2761d09b8e" name="Loop over Reference" type="LoopEnd">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>407d9e3a-c57b-4363-9888-93b75cfbf753</onsuccess>
+    <groupid>8ea63b3e-d08e-4256-89c4-d0bbd32f9f89</groupid>
+  </stage>
+  <stage stageid="751a5a35-63ee-49e2-b116-fd0e7eb6296c" name="Assing Txn ref" type="Calculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>60</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>58c41322-e5fc-45f2-8251-ee2761d09b8e</onsuccess>
+    <calculation expression="[txn_reference.Path]" stage="txn_path" />
+  </stage>
+  <stage stageid="4de01ea7-1884-46fa-8194-d9ef738339ba" name="txn_path" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>750</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="94e0e2bf-548c-4a13-8c67-f47ac9384443" name="Remove spaces" type="Calculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>75</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>3f8d6bc5-a8dd-4759-9fb5-0e4506780313</onsuccess>
+    <calculation expression="Replace([txn_ref_number], &quot; &quot;, &quot;&quot;)" stage="txn_ref_number" />
+  </stage>
+  <stage stageid="64e1b6ef-26bd-449e-b8dd-bd41aec5569d" name="WUMT::Get Transaction" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>885</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Account Number" friendlyname="Account Number" expr="[receivable_gl]" />
+      <input type="text" name="External Reference" friendlyname="External Reference" expr="[txn_ref_number]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Results" friendlyname="Results" stage="Transaction_details" />
+      <output type="number" name="Amount" friendlyname="Amount" stage="credit_amount" />
+      <output type="text" name="Narration" friendlyname="Narration" stage="credit_narration" />
+      <output type="text" name="Date" friendlyname="Date" stage="txn_date" />
+    </outputs>
+    <onsuccess>d333aac8-7076-49f9-938d-751fd1919f91</onsuccess>
+    <resource object="WUMT" action="Get Transaction" />
+  </stage>
+  <stage stageid="aef8471a-ea68-4e35-ae9f-8b081a5ca65a" name="Transaction_details" type="Collection">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>660</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="26b7e7da-ddb6-4991-bddc-499a5ed0ce80" name="credit_amount" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>705</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="9b980192-e24e-4f5f-b316-b68e19b199f1" name="credit_narration" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>705</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f7ead68c-252f-4909-96ae-11ba799813fd" name="txn_date" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>660</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a1f769db-1572-4a2e-9821-6794522f9c36" name="Overall Debit" type="Calculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>795</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>64e1b6ef-26bd-449e-b8dd-bd41aec5569d</onsuccess>
+    <calculation expression="([Subagent Total Debit]*[commission_per_txn]) + ([branch_total_txn]*[commission_per_txn])" stage="overall_debit" />
+  </stage>
+  <stage stageid="91e9d2d2-01b5-47c7-bceb-11868ba3fa0c" name="overall_debit" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>705</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="300cc839-fbea-4ff7-bc76-6294840551f6" name="Start time" type="Calculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>-570</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>cede7f56-1ebf-426f-a287-ad7318c083ad</onsuccess>
+    <calculation expression="Now()" stage="start_time" />
+  </stage>
+  <stage stageid="5f9829a1-613b-4b32-8378-930bd0359aeb" name="start_time" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>750</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>datetime</datatype>
+    <initialvalue />
+    <exposure>Session</exposure>
+    <alwaysinit />
+  </stage>
+  <stage stageid="abaea15a-d8ea-4ac2-9323-a49ed613aed6" name="End time" type="Calculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>1110</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>754f91df-8345-49a7-b024-1f598246211e</onsuccess>
+    <calculation expression="Now()" stage="end_time" />
+  </stage>
+  <stage stageid="18a756a5-aa23-4dbc-bf77-8fc4c3008e94" name="end_time" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>795</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>datetime</datatype>
+    <initialvalue />
+    <exposure>Statistic</exposure>
+    <alwaysinit />
+  </stage>
+  <stage stageid="63f85eee-9670-4831-bef5-85c09a75a775" name="Collections::Count Rows" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-300</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;file details&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="file_details_count" />
+    </outputs>
+    <onsuccess>d61bcfae-1849-412f-86cc-6a521168b6bd</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="d61bcfae-1849-412f-86cc-6a521168b6bd" name="Files present?" type="Decision">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-255</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[file_details_count] &gt;0" />
+    <ontrue>dbf81ad4-b519-4a6b-8ee2-f3deba781c27</ontrue>
+    <onfalse>21b6bfb5-eaaa-403c-a854-71c4743e28ef</onfalse>
+  </stage>
+  <stage stageid="c22e1b39-0ac0-4db9-a1c1-579903ad29a1" name="Collections::Count Rows" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-345</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;txn_reference&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="txn_details_count" />
+    </outputs>
+    <onsuccess>63f85eee-9670-4831-bef5-85c09a75a775</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="d0a6f30f-502b-475f-a215-7e2b7277cbd1" name="Cant Access Reference" type="Exception">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>150</displayx>
+    <displayy>-210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <exception localized="yes" type="" detail="&quot;Cant access reference, please ensure files are available and try again&quot;" />
+  </stage>
+  <stage stageid="dbf81ad4-b519-4a6b-8ee2-f3deba781c27" name="Files present?" type="Decision">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-210</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[txn_details_count] &gt; 0" />
+    <ontrue>642ab49d-b15a-49f3-bc6f-0b8a8b040031</ontrue>
+    <onfalse>d0a6f30f-502b-475f-a215-7e2b7277cbd1</onfalse>
+  </stage>
+  <stage stageid="57106a61-534b-4c6b-a007-24948b5a3a19" name="file_details_count" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>795</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="1ce1c66e-7b2b-42c5-9db4-16fc128846e0" name="txn_details_count" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>795</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="684a9e51-20b0-4269-93b5-af22f7ad3ace" name="Start" type="Start">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>-615</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="affiliate_code" stage="affiliate" />
+    </inputs>
+    <onsuccess>300cc839-fbea-4ff7-bc76-6294840551f6</onsuccess>
+  </stage>
+  <stage stageid="36d806c0-dad6-4f29-b77f-da68c9a6ac7a" name="End" type="End">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>1200</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="232bc76b-d188-4b85-9f4e-631abae3e534" name="affiliate_code" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-105</displayx>
+    <displayy>0</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">EGH</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="fbc1373d-0774-44ca-a4a4-5962b5af63f1" name="Is CSC?" type="Decision">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>375</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[CSV Values.Branch Code] = &quot;EGH-CSC&quot;" />
+    <ontrue>df15547e-2d26-4e95-905e-cc0788436311</ontrue>
+    <onfalse>5da55eff-f05c-4b3e-95db-6271ebf2b588</onfalse>
+  </stage>
+  <stage stageid="df15547e-2d26-4e95-905e-cc0788436311" name="Anchor11" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>375</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>e4a13b56-9e31-4336-a791-ea9fefe65eb0</onsuccess>
+  </stage>
+  <stage stageid="e4a13b56-9e31-4336-a791-ea9fefe65eb0" name="Anchor12" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>705</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>1b06e3ae-febc-4490-a761-17a180cd6af5</onsuccess>
+  </stage>
+  <stage stageid="f26bddff-f47d-48b6-8db0-24df165e3458" name="processed_amount" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>840</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="fc791d53-3289-4198-b8bd-aa85ffd90bc1" name="current_branch" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>840</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a7b29bbf-b08f-4c93-bcda-048af33ed077" name="Create 2nd filter" type="Calculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>600</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>0897baa8-7216-4da4-adae-0f5c9220050f</onsuccess>
+    <calculation expression="&quot;[Branch Code] like '&quot; &amp;[branch code]&amp;&quot;'&quot;" stage="2nd_filter" />
+  </stage>
+  <stage stageid="595cbecf-7616-48e9-a136-1966b5a00044" name="2nd_filter" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>885</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="858b600c-9464-4412-9bcf-c8c0f100f477" name="Filter Collection" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>600</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="collection" name="Collection In" friendlyname="Collection In" narrative="The collection to filter." expr="[CSV Values]" />
+      <input type="text" name="Filter" friendlyname="Filter" narrative="The filter query." expr="[2nd_filter]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Collection Out" friendlyname="Collection Out" narrative="The filtered collection." stage="2nd filtered collection" />
+    </outputs>
+    <onsuccess>93f9cbeb-ba6d-40c5-9a24-01841add2f00</onsuccess>
+    <resource object="Utility - Collection Manipulation" action="Filter Collection" />
+  </stage>
+  <stage stageid="0e827e9e-77b4-43ea-9614-f918421e0b65" name="2nd filtered collection" type="Collection">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>840</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="93f9cbeb-ba6d-40c5-9a24-01841add2f00" name="Loop Filtered" type="LoopStart">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>600</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>08835941-89b2-4fad-9e9d-7cc38264fa9e</onsuccess>
+    <groupid>8ea0fd44-3f4e-4cf3-bc15-363f181f352f</groupid>
+    <looptype>ForEach</looptype>
+    <loopdata>2nd filtered collection</loopdata>
+  </stage>
+  <stage stageid="b3c083b9-8e48-429e-a1d4-68a5bb43ea30" name="Loop Filtered" type="LoopEnd">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>690</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>6f747cd8-a10f-45a8-b6ad-9f845a8c37f0</onsuccess>
+    <groupid>8ea0fd44-3f4e-4cf3-bc15-363f181f352f</groupid>
+  </stage>
+  <stage stageid="08835941-89b2-4fad-9e9d-7cc38264fa9e" name="Sum" type="MultipleCalculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>645</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>b3c083b9-8e48-429e-a1d4-68a5bb43ea30</onsuccess>
+    <steps>
+      <calculation expression="ToNumber([2nd filtered collection.Processed Amount]) + [processed_amount]" stage="processed_amount" />
+    </steps>
+  </stage>
+  <stage stageid="d1d19e12-4313-4609-ae33-3fc1a797929a" name="Initialize Amount" type="Calculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>135</displayx>
+    <displayy>825</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>fdb2469a-b14e-4eff-80f5-6349a7024a16</onsuccess>
+    <calculation expression="0" stage="processed_amount" />
+  </stage>
+  <stage stageid="0897baa8-7216-4da4-adae-0f5c9220050f" name="Assign Current Branch" type="Calculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>345</displayx>
+    <displayy>645</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>858b600c-9464-4412-9bcf-c8c0f100f477</onsuccess>
+    <calculation expression="[CSV Values.Branch Code]" stage="current_branch" />
+  </stage>
+  <stage stageid="5da55eff-f05c-4b3e-95db-6271ebf2b588" name="Is branch populated?" type="Decision">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>435</displayx>
+    <displayy>375</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[CSV Values.Branch Code] = [current_branch]" />
+    <ontrue>e572368d-6fcb-4f1e-9cb4-73023c90581b</ontrue>
+    <onfalse>c45714aa-74da-4b04-9842-bfce1d21c096</onfalse>
+  </stage>
+  <stage stageid="e572368d-6fcb-4f1e-9cb4-73023c90581b" name="Anchor20" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>435</displayx>
+    <displayy>705</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>1b06e3ae-febc-4490-a761-17a180cd6af5</onsuccess>
+  </stage>
+  <stage stageid="fdb2469a-b14e-4eff-80f5-6349a7024a16" name="Anchor21" type="Anchor">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>285</displayx>
+    <displayy>825</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>e4a13b56-9e31-4336-a791-ea9fefe65eb0</onsuccess>
+  </stage>
+  <stage stageid="e29e2ba2-8403-4cb2-b191-687daa948511" name="Assign date" type="Calculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>255</displayx>
+    <displayy>330</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>fbc1373d-0774-44ca-a4a4-5962b5af63f1</onsuccess>
+    <calculation expression="Right([CSV Values.From Date],Len([CSV Values.From Date]))" stage="value_date" />
+  </stage>
+  <stage stageid="275243c6-db46-43c2-a7e1-23f9d3899428" name="value_date" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>885</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b90fb631-a083-4598-a46b-83cea70fa86a" name="Count Transactions" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>1020</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;batchCollection&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="branch_txns" />
+    </outputs>
+    <onsuccess>45b823dc-9ea1-4461-a731-c03d9e550443</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="45b823dc-9ea1-4461-a731-c03d9e550443" name="Count Transactions" type="Action">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>1065</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;batchCollection1&quot;" />
+    </inputs>
+    <outputs>
+      <output type="number" name="Count" friendlyname="Count" narrative="The number of rows counted in the collection" stage="subagent_txns" />
+    </outputs>
+    <onsuccess>abaea15a-d8ea-4ac2-9323-a49ed613aed6</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Count Rows" />
+  </stage>
+  <stage stageid="5add4468-0a4f-4d36-81d4-9dfd31405429" name="subagent_txns" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-420</displayx>
+    <displayy>930</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="98d48d73-4010-4df2-82f4-fedfbc82d441" name="branch_txns" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-480</displayx>
+    <displayy>930</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c6b759e6-dc54-4baa-a181-070a14dbf2da" name="Enable Posting" type="MultipleCalculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>510</displayx>
+    <displayy>885</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>87bb2d2d-20f1-4fcf-873c-4be22f1103c7</onsuccess>
+    <steps>
+      <calculation expression="1" stage="post_flag" />
+      <calculation expression="True" stage="posting_flag" />
+    </steps>
+  </stage>
+  <stage stageid="5523c995-6fcc-47c1-9171-5f6c4326fa98" name="post_flag" type="Data">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-360</displayx>
+    <displayy>885</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>number</datatype>
+    <initialvalue>0</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="871586fd-6b32-41f1-ad12-51120f997e0f" name="Posting disables" type="Calculation">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>930</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>6626be16-f226-4439-8e08-9ab0c9b9578a</onsuccess>
+    <calculation expression="0" stage="post_flag" />
+  </stage>
+  <stage stageid="d333aac8-7076-49f9-938d-751fd1919f91" name="Enable posting?" type="Decision">
+    <subsheetid>6b43f386-66e5-4b4e-b346-85c3507645b5</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>885</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[missing_agents_count] = 0 AND [overall_debit] = [credit_amount]" />
+    <ontrue>c6b759e6-dc54-4baa-a181-070a14dbf2da</ontrue>
+    <onfalse>871586fd-6b32-41f1-ad12-51120f997e0f</onfalse>
+  </stage>
+  <stage stageid="fd7c9504-29f7-46a4-844d-de4533b2633a" name="SendMail" type="SubSheetInfo">
+    <subsheetid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>-195</displayx>
+    <displayy>-105</displayy>
+    <displaywidth>150</displaywidth>
+    <displayheight>90</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="4f66cb54-cacb-42dd-af57-2c1d8f9dd523" name="SendMail" type="SubSheet">
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>-30</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>7b962f0e-5daf-466f-8eda-58ef67c3012e</onsuccess>
+    <processid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</processid>
+  </stage>
+  <stage stageid="8e73034e-a030-4db2-b0c7-6b7ae24355f7" name="Start" type="Start">
+    <subsheetid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="To" stage="To" />
+      <input type="text" name="Subject" stage="Subject" />
+      <input type="text" name="Body" stage="Body" />
+      <input type="flag" name="WithAttachment" stage="WithAttachment" />
+      <input type="text" name="PathToAttachement" stage="PathToAttachment" />
+    </inputs>
+    <onsuccess>42741737-3315-463a-b197-aee6ad4eb713</onsuccess>
+  </stage>
+  <stage stageid="67ade814-36a6-4da8-a42a-7c9f1176f705" name="End" type="End">
+    <subsheetid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>180</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+  </stage>
+  <stage stageid="f680e984-c905-4e66-b768-813a02d032dc" name="Body" type="Data">
+    <subsheetid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">Dear Team</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="841ce536-52fb-48ea-8e86-4386e404ba19" name="Subject" type="Data">
+    <subsheetid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">CGATE</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="a6846aa5-c93a-4e85-b044-4adbdadc53f5" name="WithAttachment" type="Data">
+    <subsheetid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="93ab17ca-9528-47b2-8218-2a53d43207d4" name="Add Row To Report" type="Action">
+    <subsheetid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>0</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Collection Name" friendlyname="Collection Name" narrative="The name of the collection to act upon" expr="&quot;Reports&quot;" />
+    </inputs>
+    <onsuccess>e6cfb582-9ba5-420a-9aa0-414e196686b8</onsuccess>
+    <resource object="Blueprism.AutomateProcessCore.clsCollectionActions" action="Add Row" />
+  </stage>
+  <stage stageid="0fba5194-9e95-4bde-9422-c01674f15b33" name="Add File to Report" type="Calculation">
+    <subsheetid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>9550f078-c5a1-4e54-baf4-41644c036832</onsuccess>
+    <calculation expression="[PathToAttachment]" stage="Reports.Path" />
+  </stage>
+  <stage stageid="9550f078-c5a1-4e54-baf4-41644c036832" name="Email - POP3/SMTP::Send Message" type="Action">
+    <subsheetid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="From" friendlyname="From" narrative="The email address of the sender." expr="[smtp_username]&amp;&quot;@ecobank.com&quot;" />
+      <input type="text" name="To" friendlyname="To" narrative="The email address of the recipient. To address multiple recipients use the format &quot;john.smith@example.com, henry.jones@example.com&quot; OR &quot;John Smith &lt;john.smith@example.com&gt;, Henry Jones &lt;henry.jones@example.com&gt;&quot;." expr="[To]" />
+      <input type="text" name="Subject" friendlyname="Subject" narrative="The subject of the email." expr="[Subject]" />
+      <input type="text" name="Body" friendlyname="Body" narrative="The body of the email." expr="[Body]" />
+      <input type="collection" name="Attachments" friendlyname="Attachments" narrative="A Collection containing a list of files to add to the email as attachments." expr="[Reports]" />
+      <input type="flag" name="BodyIsHTML" friendlyname="BodyIsHTML" narrative="Indicates if the body should be sent as HTML" expr="True" />
+    </inputs>
+    <onsuccess>67ade814-36a6-4da8-a42a-7c9f1176f705</onsuccess>
+    <resource object="Email - POP3/SMTP" action="Send Message" />
+  </stage>
+  <stage stageid="c15fa347-55eb-464a-94a1-64858538b719" name="smtp_password" type="Data">
+    <subsheetid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>105</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>password</datatype>
+    <initialvalueenc>4,22,27,82,12,90,31,86,115</initialvalueenc>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="854c6dd2-9c52-453c-b413-02a16d983045" name="smtp_username" type="Data">
+    <subsheetid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">oogunjobi</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="18375014-c983-4675-85a8-8a3f43d2ea69" name="Configure SMTP" type="Action">
+    <subsheetid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-90</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <inputs>
+      <input type="text" name="Username" narrative="The POP3 and SMTP Username" expr="[smtp_username]" />
+      <input type="password" name="Password" narrative="The POP3 and SMTP Password" expr="[smtp_password]" />
+      <input type="text" name="POP3 Server" narrative="The POP3 Server address e.g. pop.domain.com" expr="" />
+      <input type="text" name="SMTP Server" narrative="The SMTP Server address e.g. smtp.domain.com" expr="[smtp_server]" />
+      <input type="number" name="POP3 Port" narrative="The POP3 Port, e.g. 110 or 995" expr="" />
+      <input type="number" name="SMTP Port" narrative="The SMTP Port, e.g 25 or 465" expr="25" />
+      <input type="flag" name="POP3 UseSSL" narrative="Whether to use SSL for POP3" expr="" />
+      <input type="flag" name="SMTP UseSSL" narrative="Whether to use SSL for SMTP" expr="False" />
+    </inputs>
+    <onsuccess>ab1cc456-4b0f-4226-9230-3f1d7188138f</onsuccess>
+    <resource object="Email - POP3/SMTP" action="Configure" />
+  </stage>
+  <stage stageid="42741737-3315-463a-b197-aee6ad4eb713" name="Get Credentials" type="Action">
+    <subsheetid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <outputs>
+      <output type="text" name="smtp_username" friendlyname="smtp_username" stage="smtp_username" />
+      <output type="password" name="smtp_password" friendlyname="smtp_password" stage="smtp_password" />
+      <output type="text" name="smtp_server" friendlyname="smtp_server" stage="smtp_server" />
+    </outputs>
+    <onsuccess>18375014-c983-4675-85a8-8a3f43d2ea69</onsuccess>
+    <resource object="Email - Credentials" action="Get Credentials" />
+  </stage>
+  <stage stageid="9e449893-776f-4f39-8548-36f59a46b1ca" name="smtp_server" type="Data">
+    <subsheetid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>-135</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e6cfb582-9ba5-420a-9aa0-414e196686b8" name="Today's Date" type="Calculation">
+    <subsheetid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>0fba5194-9e95-4bde-9422-c01674f15b33</onsuccess>
+    <calculation expression="FormatDate(Now(), &quot;dd-MMM-yyyy&quot;)" stage="Today" />
+  </stage>
+  <stage stageid="e895f1d4-0d4a-4298-b574-d1d0a8a44b2e" name="Today" type="Data">
+    <subsheetid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>420</displayx>
+    <displayy>-15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="53bc6534-5d5f-495d-9b6f-a326c9e261f3" name="Reports" type="Collection">
+    <subsheetid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>45</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+    <collectioninfo>
+      <field name="Path" type="text" />
+    </collectioninfo>
+  </stage>
+  <stage stageid="f4e48da2-fc09-4ab0-a2c5-ac9ae6c96863" name="PathToAttachment" type="Data">
+    <subsheetid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>-180</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="FF0000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="ab1cc456-4b0f-4226-9230-3f1d7188138f" name="With Attacment" type="Decision">
+    <subsheetid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>240</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <decision expression="[WithAttachment]" />
+    <ontrue>93ab17ca-9528-47b2-8218-2a53d43207d4</ontrue>
+    <onfalse>22fcce81-79af-462d-aa9c-0b03a223bf4c</onfalse>
+  </stage>
+  <stage stageid="22fcce81-79af-462d-aa9c-0b03a223bf4c" name="Anchor43" type="Anchor">
+    <subsheetid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>-45</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>4ebef00d-7c44-4f89-81c7-b448c5102d79</onsuccess>
+  </stage>
+  <stage stageid="4ebef00d-7c44-4f89-81c7-b448c5102d79" name="Anchor45" type="Anchor">
+    <subsheetid>c7ecb52b-53c4-4915-86dd-df2a3fc5fc2f</subsheetid>
+    <narrative>
+    </narrative>
+    <displayx>315</displayx>
+    <displayy>135</displayy>
+    <displaywidth>10</displaywidth>
+    <displayheight>10</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>9550f078-c5a1-4e54-baf4-41644c036832</onsuccess>
+  </stage>
+  <stage stageid="4d2560e6-2723-454f-a7ae-10ee05f8fcd7" name="Recover4" type="Recover">
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>45e96613-b613-439b-9e3e-aa938ab8262b</onsuccess>
+    <attempts>3</attempts>
+  </stage>
+  <stage stageid="077a6310-a169-4ade-a43b-2e02fe6738d7" name="Resume1" type="Resume">
+    <narrative>
+    </narrative>
+    <displayx>90</displayx>
+    <displayy>15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>4f66cb54-cacb-42dd-af57-2c1d8f9dd523</onsuccess>
+  </stage>
+  <stage stageid="606f131c-706c-4289-9b56-18cd8f635fad" name="GetExceptionDetails" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>15</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>077a6310-a169-4ade-a43b-2e02fe6738d7</onsuccess>
+    <calculation expression="ExceptionDetail()" stage="ExceptionDetails" />
+  </stage>
+  <stage stageid="45e96613-b613-439b-9e3e-aa938ab8262b" name="GetExceptionStage" type="Calculation">
+    <narrative>
+    </narrative>
+    <displayx>165</displayx>
+    <displayy>60</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <onsuccess>606f131c-706c-4289-9b56-18cd8f635fad</onsuccess>
+    <calculation expression="ExceptionStage()" stage="ExceptionStage" />
+  </stage>
+  <stage stageid="d62b3e3a-3f14-40a8-a18c-21ebc3c07832" name="ExceptionStage" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-165</displayx>
+    <displayy>0</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="38887d51-8a6b-440d-8240-16fad2e0253e" name="ExceptionDetails" type="Data">
+    <narrative>
+    </narrative>
+    <displayx>-225</displayx>
+    <displayy>0</displayy>
+    <displaywidth>60</displaywidth>
+    <displayheight>30</displayheight>
+    <font family="Segoe UI" size="10" style="Regular" color="000000" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+</process>
