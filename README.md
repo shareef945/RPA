@@ -3,7 +3,7 @@ This repository contains a collection of automated processes developed with Blue
 
 ## Featured Processes:
 
-### 1. Western Union Money Transfer 
+### 1. Western Union Money Transfer Settlement
 Automates the commission sharing for Western Union Money Transfer files between affiliates and subagents, including file management, calculations, and system integration with Flexcube.
 
 ### 2. Unity Link Principal Settlement
