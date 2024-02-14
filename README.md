@@ -12,16 +12,16 @@ Processes principal settlements for branches and subagents, ensuring accurate an
 ### 3. Unity Link Commission Settlement
 Handles the commission settlement process for Unity Link, streamlining the calculation and distribution of commissions.
 
-### 4. LEC TokenPurchase
+### 4. LEC Token Purchase
 Automatically settles successful token purchases, providing a seamless experience for both the bank and its customers.
 
 ### 5. EDC Operations
 Facilitates the import of data from Flexcube and posts it into the EDC core banking application, bridging the gap between different banking systems.
 
-### 6. DudChequeAlerts
+### 6. Dud Cheque Alerts
 Sends SMS and email alerts to customers who have issued dud cheques, enhancing customer service and reducing the risk of financial discrepancies.
 
-### 7. AccountDormancyAlerts
+### 7. Account Dormancy Alerts
 Processes input files to notify customers of their account dormancy status, helping to maintain active customer engagement and comply with banking regulations.
 
 Dive into the repository to explore how these Blue Prism automations can be implemented to transform your transaction settlement operations into a model of efficiency and reliability.
